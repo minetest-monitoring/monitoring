@@ -17,6 +17,7 @@ dofile(MP.."/metrictypes/histogram.lua")
 dofile(MP.."/export/prometheus_push.lua")
 dofile(MP.."/export/csv.lua")
 
+dofile(MP.."/builtin/registered_count.lua")
 dofile(MP.."/builtin/generated.lua")
 dofile(MP.."/builtin/received_fields.lua")
 dofile(MP.."/builtin/craft_count.lua")
