@@ -28,10 +28,12 @@ local push_metrics = function()
 
   end
 
+  -- https://www.nginx.com/blog/deploying-nginx-plus-as-an-api-gateway-part-1/
   http.fetch({
     url = monitoring.settings.prom_push_url,
     extra_headers = { "Content-Type: text/plain" },
     post_data = data,
+    extra_headers = {"apikey", monitoring.settings.prom_push_key},
     timeout = 1
   }, function(res)
     if res.succeeded and res.code == 200 then
