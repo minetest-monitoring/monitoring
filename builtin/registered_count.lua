@@ -12,8 +12,8 @@ end
 
 
 minetest.after(5, function()
-  metric_nodes.set( tablelength(minetest.registered_nodes)) )
-  metric_items.set( tablelength(minetest.registered_items)) )
-  metric_entities.set( tablelength(minetest.registered_entities)) )
-  metric_abm.set( tablelength(minetest.registered_abms)) )
+  metric_nodes.set( tablelength(minetest.registered_nodes) )
+  metric_items.set( tablelength(minetest.registered_items) )
+  metric_entities.set( tablelength(minetest.registered_entities) )
+  metric_abm.set( tablelength(minetest.registered_abms) )
 end)

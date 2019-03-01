@@ -1,9 +1,9 @@
 
 monitoring = {
-  metrics = {} -- {name="", help="", type="", ...}
+  metrics = {}, -- {name="", help="", type="", ...}
   settings = {
-    prom_push_url = minetest.settings:get("monitoring.prometheus_push_url")
-    prom_push_key = minetest.settings:get("monitoring.prometheus_push_key") or ""
+    prom_push_url = minetest.settings:get("monitoring.prometheus_push_url"),
+    prom_push_key = minetest.settings:get("monitoring.prometheus_push_key") or "",
     csv_enable = minetest.settings:get("monitoring.csv_enable")
   }
 }

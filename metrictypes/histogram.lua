@@ -10,7 +10,7 @@ monitoring.histogram = function(name, help, buckets)
   local metric = {
     name = name,
     help = help,
-    type = "gauge",
+    type = "histogram",
     buckets = buckets,
     bucketvalues = bucketvalues,
     sum = 0,
@@ -36,7 +36,7 @@ monitoring.histogram = function(name, help, buckets)
 
           for k,v in ipairs(buckets) do
             if seconds <= v then
-              metrics.bucketvalues[k] = metrics.bucketvalues[k] + 1
+              metric.bucketvalues[k] = metric.bucketvalues[k] + 1
               matched = true
             end
           end
