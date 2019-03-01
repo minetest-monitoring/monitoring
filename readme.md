@@ -12,7 +12,7 @@
 minetest.conf
 ```
 secure.http_mods = monitoring
-monitoring.prometheus_push_url = http://127.0.0.1:9091/metrics/job/some_job/instance/some_instance
+monitoring.prometheus_push_url = http://127.0.0.1:9091/metrics/job/minetest/instance/my_server
 ```
 
 ```bash
