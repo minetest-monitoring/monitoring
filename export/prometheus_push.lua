@@ -1,7 +1,10 @@
+local export_metric = monitoring.histogram("prom_export_latency", "latency of the export",
+  {0.001, 0.005, 0.01, 0.02, 0.1})
 
 local http
 
 local push_metrics = function()
+  local timer = export_metric.timer()
   local data = ""
 
   for _, metric in ipairs(monitoring.metrics) do
@@ -35,6 +38,9 @@ local push_metrics = function()
       --OK, no need to do anything... :P
     end
   end)
+
+  -- only measure sync time
+  timer.fetch()
 end
 
 
