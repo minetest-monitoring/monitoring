@@ -1,0 +1,9 @@
+global:
+    scrape_interval: 5s
+    external_labels:
+     monitor: 'my-monitor'
+scrape_configs:
+    - job_name: 'minetest'
+      honor_labels: true
+      static_configs:
+       - targets: ['pushgateway:9091']

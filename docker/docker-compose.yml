@@ -1,0 +1,28 @@
+version: "2"
+
+services:
+ pushgateway:
+  image: prom/pushgateway
+  ports:
+   - "9091:9091"
+
+ prometheus:
+  image: prom/prometheus
+  depends_on:
+   - "postgres-adapter"
+   - "node-exporter"
+   - "pushgateway"
+  volumes:
+   - "./prometheus.yml:/etc/prometheus/prometheus.yml"
+
+ grafana:
+  image: grafana/grafana
+  ports:
+   - "3000:3000"
+  environment:
+   - GF_SECURITY_ADMIN_PASSWORD=enter
+  depends_on:
+   - prometheus
+  volumes:
+   - "./data/grafana:/var/lib/grafana"
+   - "./data/grafana.ini:/etc/grafana/grafana.ini"

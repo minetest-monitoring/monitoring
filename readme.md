@@ -1,11 +1,22 @@
 
 # Monitoring framework for minetest
+Provides a [prometheus](https://prometheus.io) monitoring endpoint (via push-gateway)
+
+**Demo:** see [https://pandorabox.io/grafana](https://pandorabox.io/grafana) -> "Overview"
+
+## References
+* Export format: https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md
 
 ## Features
+
+* Builtin metrics (lag, mapgen, time, uptime, auth, etc)
+* Supports the **gauge**, **counter** and **histogram** metrics
 
 ## Usage in mods
 
 ### Counter
+See: https://prometheus.io/docs/concepts/metric_types/#counter
+
 ```lua
 local metric = monitoring.counter("cheat_count", "number of on_cheat")
 
@@ -13,7 +24,10 @@ function do_stuff_periodically()
   metric.inc()
 end)
 ```
+
 ### Gauge
+See: https://prometheus.io/docs/concepts/metric_types/#gauge
+
 ```lua
 local metric = monitoring.gauge("player_count", "number of players")
 
@@ -29,6 +43,8 @@ end)
 ```
 
 ### Histogram
+See: https://prometheus.io/docs/concepts/metric_types/#histogram
+
 ```lua
 -- top level variable
 local export_metric = monitoring.histogram("prom_export_latency", "latency of the export",
@@ -39,10 +55,38 @@ function do_stuff()
   -- do stuff
   timer.observe()
 end
+```
 
+### As optional dependency
+It is best to depend optionally on the `monitoring` dependency.
+For that to work you have to check for its presence when creating metric on top level:
+
+Optional dependency in `depends.txt`:
+```
+monitoring?
+```
+
+Optional metric and setter:
+```lua
+local has_monitoring = minetest.get_modpath("monitoring")
+local metric
+
+if has_monitoring then
+  metric = monitoring.counter("cheat_count", "number of on_cheat")
+end
+
+-- called periodically
+function do_stuff_periodically()
+  if metric ~= nil then
+    -- only increment if the variable is non-nil
+    metric.inc()
+  end
+end)
 ```
 
 ## Exporters
+
+Currently only the exporter for the prometheus push gateway is implemented
 
 ## Install
 
@@ -52,8 +96,6 @@ secure.http_mods = monitoring
 monitoring.prometheus_push_url = http://127.0.0.1:9091/metrics/job/minetest/instance/my_server
 ```
 
-```bash
-sudo docker run -p 9091:9091 prom/pushgateway
-```
+## Docker-compose setup for prometheus/grafana
 
-## Example
+An example `docker-compose` setup is provided in the **docker** folder
