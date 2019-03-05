@@ -11,6 +11,7 @@ services:
   depends_on:
    - "pushgateway"
   volumes:
+   - "prometheus-data:/prometheus"
    - "./prometheus.yml:/etc/prometheus/prometheus.yml"
 
  grafana:
@@ -22,5 +23,9 @@ services:
   depends_on:
    - prometheus
   volumes:
-   - "./data/grafana:/var/lib/grafana"
-   - "./data/grafana.ini:/etc/grafana/grafana.ini"
+   - "grafana-data:/var/lib/grafana"
+   - "./grafana.ini:/etc/grafana/grafana.ini"
+
+volumes:
+  grafana-data:
+  prometheus-data:
