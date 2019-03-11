@@ -12,6 +12,11 @@ Provides a [prometheus](https://prometheus.io) monitoring endpoint (via push-gat
 * Builtin metrics (lag, mapgen, time, uptime, auth, etc)
 * Supports the **gauge**, **counter** and **histogram** metrics
 
+## Builtin metrics for mods
+If installed, these metrics get exported too:
+
+* Technic (switching station: counter and histogram, quarry digs)
+
 ## Usage in mods
 
 ### Counter

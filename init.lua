@@ -18,6 +18,7 @@ dofile(MP.."/metrictypes/histogram.lua")
 dofile(MP.."/export/prometheus_push.lua")
 dofile(MP.."/export/csv.lua")
 
+dofile(MP.."/builtin/mods.lua")
 dofile(MP.."/builtin/auth_fail.lua")
 dofile(MP.."/builtin/chat_count.lua")
 dofile(MP.."/builtin/cheat_count.lua")
