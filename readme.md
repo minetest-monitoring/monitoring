@@ -57,6 +57,24 @@ function do_stuff()
 end
 ```
 
+### Wrapping functions
+
+Histogram and counter metrics can also wrap existing functions:
+```lua
+local mymetric = monitoring.counter("my_count", "my counter")
+
+function do_global_stuff()
+  -- more stuff
+end
+
+-- overwrite with wrapped and counted function
+do_global_stuff = mymetric.wrap(do_global_stuff)
+
+```
+
+* the `counter` metric will increment the value on every call
+* the `histogram` metric adds the timing on every call
+
 ### As optional dependency
 It is best to depend optionally on the `monitoring` dependency.
 For that to work you have to check for its presence when creating metric on top level:
