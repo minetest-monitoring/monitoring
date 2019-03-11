@@ -15,7 +15,11 @@ Provides a [prometheus](https://prometheus.io) monitoring endpoint (via push-gat
 ## Builtin metrics for mods
 If installed, these metrics get exported too:
 
-* Technic (switching station: counter and histogram, quarry digs)
+Technic:
+* Switching station: counter and histogram
+* Machine timeout check: counter and histogram
+* Quarry: number of digs as counter
+
 
 ## Usage in mods
 
