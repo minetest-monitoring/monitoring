@@ -23,22 +23,30 @@ local function get_max_lag()
         return arrayoutput[1]
 end
 
-minetest.register_globalstep(function(dtime)
-	if dtime > max_lag then
-		max_lag = dtime
-	end
-
-	if dtime < min_lag then
-		min_lag = dtime
-	end
-end)
-
 local timer = 0
+local last_call_t = minetest.get_us_time()
+
 minetest.register_globalstep(function(dtime)
-	timer = timer + dtime
+  -- calculate own delta-time
+  local now = minetest.get_us_time()
+  local deltat = (now - last_call_t) / 1000000
+  -- swap timestamps
+  last_call_t = now
+
+  -- executed on every step
+	if deltat > max_lag then
+		max_lag = deltat
+	end
+
+	if deltat < min_lag then
+		min_lag = deltat
+	end
+
+	timer = timer + deltat
 	if timer < 5 then return end
 	timer=0
 
+  -- executed every few seconds
   max_metric.set( max_lag )
 	min_metric.set( min_lag )
 	avg_metric.set( tonumber(get_max_lag()) )
