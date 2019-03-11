@@ -41,4 +41,11 @@ if minetest.get_modpath("technic") then
       .counter("technic_quarry_dig_count", "number of technic quarry digs")
       .wrap(quarry_node.technic_run)
   end
+
+  print("[monitoring] wrapping technic.get_or_load_node")
+  technic.get_or_load_node = monitoring
+    .histogram("technic_get_or_load_node_latency",
+      "latency of the technic get_or_load_node calls",
+      {0.001, 0.005, 0.01, 0.02, 0.1, 0.5, 1.0})
+    .wrap(technic.get_or_load_node)
 end
