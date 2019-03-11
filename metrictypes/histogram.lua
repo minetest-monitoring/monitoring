@@ -20,7 +20,33 @@ monitoring.histogram = function(name, help, buckets)
 
   table.insert(monitoring.metrics, metric)
 
+  -- adds the value to the buckets
+  local add_value = function(seconds)
+    local matched = false
+
+    metric.count = metric.count + 1
+    metric.sum = metric.sum + seconds
+
+    for k,v in ipairs(buckets) do
+      if seconds <= v then
+        metric.bucketvalues[k] = metric.bucketvalues[k] + 1
+        matched = true
+      end
+    end
+
+    if not matched then
+      metric.infcount = metric.infcount + 1
+    end
+  end
+
   return {
+
+    -- manual count
+    observe = function(seconds)
+      add_value(seconds)
+    end,
+
+    -- timer based count
     timer = function()
       local t0 = minetest.get_us_time()
 
@@ -29,21 +55,8 @@ monitoring.histogram = function(name, help, buckets)
           local t1 = minetest.get_us_time()
           local us = t1 - t0
           local seconds = us / 1000000
-          local matched = false
 
-          metric.count = metric.count + 1
-          metric.sum = metric.sum + seconds
-
-          for k,v in ipairs(buckets) do
-            if seconds <= v then
-              metric.bucketvalues[k] = metric.bucketvalues[k] + 1
-              matched = true
-            end
-          end
-
-          if not matched then
-            metric.infcount = metric.infcount + 1
-          end
+          add_value(seconds)
         end
       }
     end

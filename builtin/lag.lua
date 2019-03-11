@@ -2,6 +2,10 @@ local max_metric = monitoring.gauge("max_lag", "max lag in seconds")
 local min_metric = monitoring.gauge("min_lag", "min lag in seconds")
 local avg_metric = monitoring.gauge("avg_lag", "avg lag in seconds")
 
+local lag_histogram = monitoring.histogram("lag", "lag histogram",
+  {0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0})
+
+
 local min_lag
 local max_lag
 
@@ -32,6 +36,8 @@ minetest.register_globalstep(function(dtime)
   local deltat = (now - last_call_t) / 1000000
   -- swap timestamps
   last_call_t = now
+
+  lag_histogram.observe(deltat)
 
   -- executed on every step
 	if deltat > max_lag then
