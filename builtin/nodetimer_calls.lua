@@ -4,7 +4,7 @@ local metric_time = monitoring.counter("nodetimer_time", "time usage in microsec
 minetest.register_on_mods_loaded(function()
   for _, node in pairs(minetest.registered_nodes) do
     if node.on_timer then
-      local old_action = abm.on_timer
+      local old_action = node.on_timer
       node.on_timer = function(pos, elapsed)
         metric.inc()
         local t0 = minetest.get_us_time()
