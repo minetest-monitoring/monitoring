@@ -4,7 +4,8 @@ monitoring = {
   settings = {
     prom_push_url = minetest.settings:get("monitoring.prometheus_push_url"),
     prom_push_key = minetest.settings:get("monitoring.prometheus_push_key") or "",
-    csv_enable = minetest.settings:get("monitoring.csv_enable")
+    csv_enable = minetest.settings:get("monitoring.csv_enable"),
+    json_enable = minetest.settings:get("monitoring.json_enable")
   }
 }
 
@@ -17,6 +18,7 @@ dofile(MP.."/metrictypes/histogram.lua")
 
 dofile(MP.."/export/prometheus_push.lua")
 dofile(MP.."/export/csv.lua")
+dofile(MP.."/export/json.lua")
 
 --dofile(MP.."/builtin/mods.lua")
 dofile(MP.."/builtin/abm_calls.lua")
@@ -52,4 +54,9 @@ end
 if monitoring.settings.csv_enable then
   print("[monitoring] enabling csv export")
   monitoring.csv_init()
+end
+
+if monitoring.settings.json_enable then
+  print("[monitoring] enabling json export")
+  monitoring.json_init()
 end
