@@ -3,7 +3,7 @@ monitoring.counter = function(name, help)
   local metric = {
     name = name,
     help = help,
-    type = "gauge",
+    type = "counter",
     value = 0
   }
 
