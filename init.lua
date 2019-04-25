@@ -47,6 +47,11 @@ if not monitoring.settings.builtin_disable then
   dofile(MP.."/builtin/uptime.lua")
 end
 
+-- external mod integration
+if minetest.get_modpath("advtrains") then
+  dofile(MP.."/modintegration/advtrains.lua")
+end
+
 if monitoring.settings.prom_push_url then
   if not http then
     error("prom_push_url defined but http not available!")
