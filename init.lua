@@ -53,7 +53,7 @@ if minetest.get_modpath("advtrains") then
 end
 
 if minetest.get_modpath("mesecons") then
-  dofile(MP.."/modintegration/mesecons.lua")
+  -- dofile(MP.."/modintegration/mesecons.lua")
 end
 
 if monitoring.settings.prom_push_url then
