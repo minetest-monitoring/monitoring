@@ -52,6 +52,10 @@ if minetest.get_modpath("advtrains") then
   dofile(MP.."/modintegration/advtrains.lua")
 end
 
+if minetest.get_modpath("mesecons") then
+  dofile(MP.."/modintegration/mesecons.lua")
+end
+
 if monitoring.settings.prom_push_url then
   if not http then
     error("prom_push_url defined but http not available!")
