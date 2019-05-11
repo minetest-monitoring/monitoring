@@ -19,3 +19,9 @@ Provides a [prometheus](https://prometheus.io) monitoring endpoint (via push-gat
 
 * Builtin metrics (lag, mapgen, time, uptime, auth, etc)
 * Supports the **gauge**, **counter** and **histogram** metrics
+
+## Screenshots
+
+![](pics/lag.png?raw=true)
+
+![](pics/craft.png?raw=true)
