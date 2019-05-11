@@ -25,3 +25,8 @@ Provides a [prometheus](https://prometheus.io) monitoring endpoint (via push-gat
 ![](pics/lag.png?raw=true)
 
 ![](pics/craft.png?raw=true)
+
+
+# License
+
+MIT
