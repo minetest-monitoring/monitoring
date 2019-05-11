@@ -1,5 +1,7 @@
 
 monitoring = {
+  version_major = 1,
+  version_minor = 1,
   metrics = {}, -- {name="", help="", type="", ...}
   settings = {
     prom_push_url = minetest.settings:get("monitoring.prometheus_push_url"),
@@ -25,6 +27,7 @@ if not monitoring.settings.builtin_disable then
   print("[monitoring] registering builtin metrics")
 
   --dofile(MP.."/builtin/mods.lua")
+  dofile(MP.."/builtin/version.lua")
   dofile(MP.."/builtin/abm_calls.lua")
   dofile(MP.."/builtin/auth_fail.lua")
   dofile(MP.."/builtin/chat_count.lua")
