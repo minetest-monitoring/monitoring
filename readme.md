@@ -32,7 +32,6 @@ Those are in separate repositories:
 
 ![](pics/craft.png?raw=true)
 
-
 # License
 
 MIT
