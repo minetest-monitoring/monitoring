@@ -19,7 +19,7 @@ monitoring.counter = function(name, help)
     wrap = function(f)
       return function(...)
         metric.value = metric.value + 1
-        return call(f, arg)
+        return f(...)
       end
     end
   }

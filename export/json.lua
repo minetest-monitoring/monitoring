@@ -8,7 +8,7 @@ local export_json = function()
      file:write(json_data);
      file:close();
   else
-     print(S("[monitoring] Error: Savefile '%s' could not be written."):format(tostring(path)));
+     print("[monitoring] Error: Savefile could not be written");
   end
 
 end

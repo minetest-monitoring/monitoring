@@ -18,10 +18,6 @@ monitoring.histogram = function(name, help, buckets)
     infcount = 0
   }
 
-  function compress(...)
-      return arg
-  end
-
   table.insert(monitoring.metrics, metric)
 
   -- adds the value to the buckets
@@ -70,7 +66,7 @@ monitoring.histogram = function(name, help, buckets)
       return function(...)
         local t0 = minetest.get_us_time()
 
-        local results = compress(call(f, arg))
+        local r1, r2, r3 = f(...)
 
         local t1 = minetest.get_us_time()
         local us = t1 - t0
@@ -78,7 +74,7 @@ monitoring.histogram = function(name, help, buckets)
 
         add_value(seconds)
 
-        return expand(results)
+        return r1, r2, r3
       end
     end
   }

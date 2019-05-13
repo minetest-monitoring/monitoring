@@ -53,9 +53,8 @@ local push_metrics = function()
   -- https://www.nginx.com/blog/deploying-nginx-plus-as-an-api-gateway-part-1/
   http.fetch({
     url = monitoring.settings.prom_push_url,
-    extra_headers = { "Content-Type: text/plain" },
+    extra_headers = { "Content-Type: text/plain", "apikey", monitoring.settings.prom_push_key },
     post_data = data,
-    extra_headers = {"apikey", monitoring.settings.prom_push_key},
     timeout = 1
   }, function(res)
     if res.succeeded and res.code == 200 then
@@ -63,10 +62,8 @@ local push_metrics = function()
 
       local t_post_us = minetest.get_us_time() - t0
       export_metric_post_time.set(t_post_us / 1000000)
-      
     end
   end)
-
 end
 
 
@@ -75,9 +72,9 @@ monitoring.prometheus_push_init = function(_http)
 
   local timer = 0
   minetest.register_globalstep(function(dtime)
-  	timer = timer + dtime
-  	if timer < 5 then return end
-  	timer=0
+    timer = timer + dtime
+    if timer < 5 then return end
+    timer=0
 
     push_metrics()
   end)
