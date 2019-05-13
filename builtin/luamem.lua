@@ -1,4 +1,4 @@
-local metric = monitoring.gauge("lua_mem_kb", "lua use memory in kilobytes")
+local metric = monitoring.gauge("lua_mem_kb", "lua used memory in kilobytes")
 
 
 local timer = 0
