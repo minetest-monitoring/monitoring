@@ -39,6 +39,7 @@ if not monitoring.settings.builtin_disable then
   dofile(MP.."/builtin/join_count.lua")
   dofile(MP.."/builtin/lag.lua")
   dofile(MP.."/builtin/lbm_calls.lua")
+  dofile(MP.."/builtin/luamem.lua")
   dofile(MP.."/builtin/place_count.lua")
   dofile(MP.."/builtin/nodetimer_calls.lua")
   dofile(MP.."/builtin/playercount.lua")
