@@ -27,6 +27,7 @@ Those are in separate repositories:
 * https://github.com/thomasrudin-mt/monitoring_mesecons
 * https://github.com/thomasrudin-mt/monitoring_technic
 * https://github.com/thomasrudin-mt/monitoring_digtron
+* https://github.com/thomasrudin-mt/monitoring_pipeworks
 
 ## Screenshots
 
