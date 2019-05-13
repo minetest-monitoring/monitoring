@@ -1,7 +1,7 @@
 
 monitoring = {
   version_major = 1,
-  version_minor = 1,
+  version_minor = 2,
   metrics = {}, -- {name="", help="", type="", ...}
   settings = {
     prom_push_url = minetest.settings:get("monitoring.prometheus_push_url"),
