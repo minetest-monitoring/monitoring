@@ -1,10 +1,24 @@
-local export_metric = monitoring.histogram("prom_export_latency", "latency of the export",
-  {0.001, 0.005, 0.01, 0.02, 0.1})
+local export_metric_collect_time = monitoring.gauge(
+  "prom_export_collect_time",
+  "export collect time"
+)
+
+local export_metric_post_time = monitoring.gauge(
+  "prom_export_post_time",
+  "export post time"
+)
+
+local export_size = monitoring.counter(
+  "prom_export_size_count",
+  "byte count of the prometheus export"
+)
 
 local http
 
 local push_metrics = function()
-  local timer = export_metric.timer()
+
+  local t0 = minetest.get_us_time()
+
   local data = ""
 
   for _, metric in ipairs(monitoring.metrics) do
@@ -28,7 +42,13 @@ local push_metrics = function()
 
   end
 
+  local t_collect_us = minetest.get_us_time() - t0
+  export_metric_collect_time.set(t_collect_us / 1000000)
+  t0 = minetest.get_us_time()
+
+
   --print(data)
+  export_size.inc(string.len(data))
 
   -- https://www.nginx.com/blog/deploying-nginx-plus-as-an-api-gateway-part-1/
   http.fetch({
@@ -40,11 +60,13 @@ local push_metrics = function()
   }, function(res)
     if res.succeeded and res.code == 200 then
       --OK, no need to do anything... :P
+
+      local t_post_us = minetest.get_us_time() - t0
+      export_metric_post_time.set(t_post_us / 1000000)
+      
     end
   end)
 
-  -- only measure sync time
-  timer.observe()
 end
 
 
