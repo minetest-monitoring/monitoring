@@ -20,6 +20,12 @@ Provides a [prometheus](https://prometheus.io) monitoring endpoint (via push-gat
 * Builtin metrics (lag, mapgen, time, uptime, auth, etc)
 * Supports the **gauge**, **counter** and **histogram** metrics
 
+## Mod integrations
+Those are in separate repositories:
+
+* https://github.com/thomasrudin-mt/monitoring_advtrains
+* https://github.com/thomasrudin-mt/monitoring_mesecons
+
 ## Screenshots
 
 ![](pics/lag.png?raw=true)
