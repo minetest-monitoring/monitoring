@@ -26,6 +26,7 @@ Those are in separate repositories:
 * https://github.com/thomasrudin-mt/monitoring_advtrains
 * https://github.com/thomasrudin-mt/monitoring_mesecons
 * https://github.com/thomasrudin-mt/monitoring_technic
+* https://github.com/thomasrudin-mt/monitoring_digtron
 
 ## Screenshots
 
