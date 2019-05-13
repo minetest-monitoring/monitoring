@@ -26,7 +26,6 @@ dofile(MP.."/export/json.lua")
 if not monitoring.settings.builtin_disable then
   print("[monitoring] registering builtin metrics")
 
-  --dofile(MP.."/builtin/mods.lua")
   dofile(MP.."/builtin/version.lua")
   dofile(MP.."/builtin/abm_calls.lua")
   dofile(MP.."/builtin/auth_fail.lua")
