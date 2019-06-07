@@ -47,6 +47,7 @@ if not monitoring.settings.builtin_disable then
   dofile(MP.."/builtin/punchplayer.lua")
   dofile(MP.."/builtin/received_fields.lua")
   dofile(MP.."/builtin/registered_count.lua")
+  dofile(MP.."/builtin/ticks.lua")
   dofile(MP.."/builtin/time.lua")
   dofile(MP.."/builtin/uptime.lua")
 end
