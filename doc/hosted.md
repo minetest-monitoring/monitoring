@@ -5,11 +5,11 @@ Install the mod and add the following settings to your `minetest.conf`:
 
 ```
 secure.http_mods = monitoring
-monitoring.prometheus_push_url = https://monitoring.minetest.land/push/metrics/job/minetest/instance/test
+monitoring.prometheus_push_url = https://monitoring.minetest.land/push/metrics/job/minetest/instance/my-server-name
 ```
 
 The last part of the push_url is the name of the instance.
-If the server name is `my-awesome-server` the the url should look like this:
+If the server name is `my-awesome-server` then the url should look like this:
 
 ```
 monitoring.prometheus_push_url = https://monitoring.minetest.land/push/metrics/job/minetest/instance/my-awesome-server
