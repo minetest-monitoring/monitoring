@@ -21,6 +21,22 @@ monitoring.counter = function(name, help)
         metric.value = metric.value + 1
         return f(...)
       end
+    end,
+
+    -- wrap a function and increment time on every call
+    wraptime = function(f)
+      return function(...)
+        local t0 = minetest.get_us_time()
+
+        local result = f(...)
+
+        local t1 = minetest.get_us_time()
+        local diff = t1 - t0
+
+        metric.value = metric.value + diff
+
+        return result
+      end
     end
   }
 end
