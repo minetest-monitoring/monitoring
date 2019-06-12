@@ -51,7 +51,7 @@ local push_metrics = function()
   t0 = minetest.get_us_time()
 
 
-  print(data)
+  --print(data)
   export_size.inc(string.len(data))
 
   -- https://www.nginx.com/blog/deploying-nginx-plus-as-an-api-gateway-part-1/

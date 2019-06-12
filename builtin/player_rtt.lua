@@ -1,6 +1,6 @@
 local metric_max = monitoring.gauge("player_rtt_max", "player max rtt")
-local metric_min = monitoring.gauge("player_rtt_max", "player min rtt")
-local metric_avg = monitoring.gauge("player_rtt_max", "player avg rtt")
+local metric_min = monitoring.gauge("player_rtt_min", "player min rtt")
+local metric_avg = monitoring.gauge("player_rtt_avg", "player avg rtt")
 
 
 local timer = 0

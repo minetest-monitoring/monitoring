@@ -1,6 +1,6 @@
 local metric_max = monitoring.gauge("player_jitter_max", "player max jitter")
-local metric_min = monitoring.gauge("player_jitter_max", "player min jitter")
-local metric_avg = monitoring.gauge("player_jitter_max", "player avg jitter")
+local metric_min = monitoring.gauge("player_jitter_min", "player min jitter")
+local metric_avg = monitoring.gauge("player_jitter_avg", "player avg jitter")
 
 
 local timer = 0
