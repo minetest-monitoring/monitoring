@@ -2,9 +2,8 @@
 # Monitoring framework for minetest
 Provides a [prometheus](https://prometheus.io) monitoring endpoint (via push-gateway)
 
-## Demos
+## Demo
 
-* [Pandorabox](https://pandorabox.io/grafana/d/cACE6ppik/overview?refresh=5s&orgId=1)
 * [monitoring.minetest.land](https://monitoring.minetest.land/d/YUpouLmWk/overview?tab=visualization&orgId=1&refresh=5s&var-instance=creative1)
 
 ## Documentation
