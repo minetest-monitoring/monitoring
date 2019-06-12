@@ -10,6 +10,7 @@ Provides a [prometheus](https://prometheus.io) monitoring endpoint (via push-gat
 
 * [Custom metrics](doc/custom.md)
 * [Exporters](doc/exporters.md)
+* [Chat commands](doc/chatcommands.md)
 * [Installation](doc/install.md)
 * [Hosted](doc/hosted.md)
 * [Docker](doc/docker.md)
