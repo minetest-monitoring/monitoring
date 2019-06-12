@@ -1,8 +1,3 @@
-
-
-minetest.find_path(pos1,pos2,searchdistance,max_jump,max_drop,algorithm)
-
-
 local metric = monitoring.counter("find_path_calls", "number of find_path calls")
 local metric_time = monitoring.counter("find_path_time", "time usage in microseconds for find_path calls")
 
