@@ -22,22 +22,26 @@ local push_metrics = function()
   local data = ""
 
   for _, metric in ipairs(monitoring.metrics) do
-    data = data .. "# TYPE " .. metric.name .. " " .. metric.type .. "\n"
-    data = data .. "# HELP " .. metric.name .. " " .. metric.help .. "\n"
+    if metric.value or metric.value == 0 then
 
-    if metric.value ~= nil then
-      if metric.type == "gauge" or metric.type == "counter" then
-        data = data .. metric.name .. " " .. metric.value .. "\n"
-      end
-    end
+     data = data .. "# TYPE " .. metric.name .. " " .. metric.type .. "\n"
+     data = data .. "# HELP " .. metric.name .. " " .. metric.help .. "\n"
 
-    if metric.type == "histogram" then
-      for k, bucket in ipairs(metric.buckets) do
-        data = data .. metric.name .. "_bucket{le=\"" .. bucket  .. "\"} " .. metric.bucketvalues[k] .. "\n"
-      end
-      data = data .. metric.name .. "_bucket{le=\"+Inf\"} " .. metric.infcount .. "\n"
-      data = data .. metric.name .. "_sum " .. metric.sum .. "\n"
-      data = data .. metric.name .. "_count " .. metric.count .. "\n"
+     if metric.value ~= nil then
+       if metric.type == "gauge" or metric.type == "counter" then
+         data = data .. metric.name .. " " .. metric.value .. "\n"
+       end
+     end
+
+     if metric.type == "histogram" then
+       for k, bucket in ipairs(metric.buckets) do
+         data = data .. metric.name .. "_bucket{le=\"" .. bucket  .. "\"} " .. metric.bucketvalues[k] .. "\n"
+       end
+       data = data .. metric.name .. "_bucket{le=\"+Inf\"} " .. metric.infcount .. "\n"
+       data = data .. metric.name .. "_sum " .. metric.sum .. "\n"
+       data = data .. metric.name .. "_count " .. metric.count .. "\n"
+     end
+
     end
 
   end
@@ -47,7 +51,7 @@ local push_metrics = function()
   t0 = minetest.get_us_time()
 
 
-  --print(data)
+  print(data)
   export_size.inc(string.len(data))
 
   -- https://www.nginx.com/blog/deploying-nginx-plus-as-an-api-gateway-part-1/
