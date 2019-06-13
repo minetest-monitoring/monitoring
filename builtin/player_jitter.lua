@@ -27,16 +27,19 @@ minetest.register_globalstep(function(dtime)
 	for _, player in ipairs(minetest.get_connected_players()) do
 		local info = minetest.get_player_information(player:get_player_name())
 
-		if info.min_jitter < jitter_min then
-			jitter_min = info.min_jitter
-		end
+		if info then
 
-		if info.max_jitter > jitter_max then
-			jitter_max = info.max_jitter
-		end
+			if info.min_jitter < jitter_min then
+				jitter_min = info.min_jitter
+			end
 
-		avg_sum = avg_sum + info.avg_jitter
-		avg_count = avg_count + 1
+			if info.max_jitter > jitter_max then
+				jitter_max = info.max_jitter
+			end
+
+			avg_sum = avg_sum + info.avg_jitter
+			avg_count = avg_count + 1
+		end
 
 	end
 
