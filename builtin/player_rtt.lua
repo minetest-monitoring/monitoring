@@ -26,17 +26,18 @@ minetest.register_globalstep(function(dtime)
 
 	for _, player in ipairs(minetest.get_connected_players()) do
 		local info = minetest.get_player_information(player:get_player_name())
+		if info then
+			if info.min_rtt < rtt_min then
+				rtt_min = info.min_rtt
+			end
 
-		if info.min_rtt < rtt_min then
-			rtt_min = info.min_rtt
+			if info.max_rtt > rtt_max then
+				rtt_max = info.max_rtt
+			end
+
+			avg_sum = avg_sum + info.avg_rtt
+			avg_count = avg_count + 1
 		end
-
-		if info.max_rtt > rtt_max then
-			rtt_max = info.max_rtt
-		end
-
-		avg_sum = avg_sum + info.avg_rtt
-		avg_count = avg_count + 1
 
 	end
 
