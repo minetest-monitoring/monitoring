@@ -4,4 +4,4 @@ local metric_time = monitoring.counter(
 	"time usage in microseconds for find_nodes_in_area calls"
 )
 
-minetest.find_nodes_in_area = metric.wrap(metric_time.wrap(minetest.find_nodes_in_area))
+minetest.find_nodes_in_area = metric.wrap(metric_time.wraptime(minetest.find_nodes_in_area))
