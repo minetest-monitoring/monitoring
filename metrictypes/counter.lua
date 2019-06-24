@@ -28,14 +28,14 @@ monitoring.counter = function(name, help)
       return function(...)
         local t0 = minetest.get_us_time()
 
-        local result = f(...)
+        local result1, result2, result3 = f(...)
 
         local t1 = minetest.get_us_time()
         local diff = t1 - t0
 
         metric.value = metric.value + diff
 
-        return result
+        return result1, result2, result3
       end
     end
   }
