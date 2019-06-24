@@ -28,6 +28,7 @@ Those are in separate repositories:
 * https://github.com/thomasrudin-mt/monitoring_technic
 * https://github.com/thomasrudin-mt/monitoring_digtron
 * https://github.com/thomasrudin-mt/monitoring_pipeworks
+* https://github.com/thomasrudin-mt/monitoring_protection
 
 ## Screenshots
 
