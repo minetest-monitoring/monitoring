@@ -61,12 +61,8 @@ local push_metrics = function()
     post_data = data,
     timeout = 1
   }, function(res)
-    if res.succeeded and res.code == 200 then
-      --OK, no need to do anything... :P
-
       local t_post_us = minetest.get_us_time() - t0
       export_metric_post_time.set(t_post_us / 1000000)
-    end
   end)
 end
 
