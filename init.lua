@@ -34,6 +34,7 @@ if not monitoring.settings.builtin_disable then
   dofile(MP.."/builtin/craft_count.lua")
   dofile(MP.."/builtin/dig_count.lua")
   dofile(MP.."/builtin/eat_count.lua")
+  dofile(MP.."/builtin/find_nodes_in_area.lua")
   dofile(MP.."/builtin/find_path.lua")
   dofile(MP.."/builtin/generated.lua")
   dofile(MP.."/builtin/globalstep.lua")
