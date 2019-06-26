@@ -1,9 +1,10 @@
 
-monitoring.gauge = function(name, help)
+monitoring.gauge = function(name, help, options)
   local metric = {
     name = name,
     help = help,
-    type = "gauge"
+    type = "gauge",
+    options = options or {}
   }
   table.insert(monitoring.metrics, metric)
 

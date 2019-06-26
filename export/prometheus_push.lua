@@ -30,6 +30,11 @@ local push_metrics = function()
      if metric.value ~= nil then
        if metric.type == "gauge" or metric.type == "counter" then
          data = data .. metric.name .. " " .. metric.value .. "\n"
+
+	 if metric.options and metric.options.autoflush then
+		 -- reset metric value on export
+		 metric.value = nil
+	 end
        end
      end
 

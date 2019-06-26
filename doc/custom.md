@@ -29,6 +29,14 @@ end)
 
 ```
 
+`monitoring.gauge` optionally accepts a third "options" parameter:
+
+```
+local metric = monitoring.gauge("player_count", "number of players", {
+  autoflush = true -- reset value on every export
+})
+```
+
 ### Histogram
 See: https://prometheus.io/docs/concepts/metric_types/#histogram
 
