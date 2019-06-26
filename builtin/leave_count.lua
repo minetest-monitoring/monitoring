@@ -3,10 +3,11 @@ local metric_leave_timeout = monitoring.counter("player_leave_timeout_count", "n
 
 
 minetest.register_on_leaveplayer(function(player, timed_out)
+
+	metric_leave.inc()
+
 	if timed_out then
 		metric_leave_timeout.inc()
-	else
-		metric_leave.inc()
 	end
 end)
 
