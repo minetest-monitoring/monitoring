@@ -1,5 +1,5 @@
-local max_metric = monitoring.gauge("max_lag", "max lag in seconds")
-local min_metric = monitoring.gauge("min_lag", "min lag in seconds")
+local max_metric = monitoring.gauge("max_lag", "max lag in seconds", { autoflush=true })
+local min_metric = monitoring.gauge("min_lag", "min lag in seconds", { autoflush=true })
 local avg_metric = monitoring.gauge("avg_lag", "avg lag in seconds")
 
 local lag_histogram = monitoring.histogram("lag", "lag histogram",
