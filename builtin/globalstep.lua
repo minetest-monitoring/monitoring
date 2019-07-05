@@ -9,6 +9,8 @@ minetest.register_on_mods_loaded(function()
 
   for i, globalstep in ipairs(minetest.registered_globalsteps) do
 
+    local info = minetest.callback_origins[globalstep]
+
     local new_callback = function(...)
 
       if not globalsteps_enabled then
@@ -21,7 +23,12 @@ minetest.register_on_mods_loaded(function()
       globalstep(...)
 
       local t1 = minetest.get_us_time()
-      metric_time.inc(t1 - t0)
+      local diff = t1 - t0
+      metric_time.inc(diff)
+
+      if diff > 75000 then
+        minetest.log("warning", "[monitoring] globalstep took " .. diff .. " us in mod " .. (info.mod or "<unknown>"))
+      end
 
     end
 
@@ -29,7 +36,7 @@ minetest.register_on_mods_loaded(function()
 
     -- for the profiler
     if minetest.callback_origins then
-      minetest.callback_origins[new_callback] = minetest.callback_origins[globalstep]
+      minetest.callback_origins[new_callback] = info
     end
 
   end
