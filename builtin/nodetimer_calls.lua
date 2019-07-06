@@ -9,7 +9,7 @@ minetest.register_on_mods_loaded(function()
       local old_action = node.on_timer
       node.on_timer = function(pos, elapsed)
 
-        if global_nodetimer_enabled then
+        if not global_nodetimer_enabled then
           -- rerun timer again
           return true
         end
