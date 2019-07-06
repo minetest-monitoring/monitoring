@@ -13,6 +13,16 @@ Use with care!
 * Enables all abm's
 * **privs:** server
 
+## /nodetimer_disable
+
+* Disables all nodetimers
+* **privs:** server
+
+## /nodetimer_enable
+
+* Enables all nodetimers
+* **privs:** server
+
 ## /lbm_disable
 
 * Disables all lbm's
