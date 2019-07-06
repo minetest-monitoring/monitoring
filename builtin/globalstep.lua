@@ -2,7 +2,8 @@ local metric_callbacks = monitoring.gauge("globalstep_callback_count", "number o
 local metric = monitoring.counter("globalstep_count", "number of globalstep calls")
 local metric_time = monitoring.counter("globalstep_time", "time usage in microseconds for globalstep calls")
 
-local globalsteps_enabled = true
+-- modname -> bool
+local globalsteps_disabled = {}
 
 minetest.register_on_mods_loaded(function()
   metric_callbacks.set(#minetest.registered_globalsteps)
@@ -13,7 +14,7 @@ minetest.register_on_mods_loaded(function()
 
     local new_callback = function(...)
 
-      if not globalsteps_enabled then
+      if globalsteps_disabled[info.mod] then
         return
       end
 
@@ -45,19 +46,51 @@ end)
 
 
 minetest.register_chatcommand("globalstep_disable", {
-	description = "disables all globalsteps",
+	description = "disables a globalstep",
 	privs = {server=true},
-	func = function(name)
-		minetest.log("warning", "Player " .. name .. " disables all globalsteps")
-		globalsteps_enabled = false
+	func = function(name, param)
+    if not param then
+      minetest.chat_send_player(name, "Usage: globalstep_disable <modname>")
+      return false
+    end
+
+		minetest.log("warning", "Player " .. name .. " disables globalstep " .. param)
+		globalsteps_disabled[param] = true
 	end
 })
 
 minetest.register_chatcommand("globalstep_enable", {
+	description = "enables a globalstep",
+	privs = {server=true},
+	func = function(name, param)
+    if not param then
+      minetest.chat_send_player(name, "Usage: globalstep_enable <modname>")
+      return false
+    end
+
+		minetest.log("warning", "Player " .. name .. " enables globalstep " .. param)
+		globalsteps_disabled[param] = nil
+	end
+})
+
+minetest.register_chatcommand("globalsteps_enable", {
 	description = "enables all globalsteps",
 	privs = {server=true},
-	func = function(name)
+	func = function(name, param)
 		minetest.log("warning", "Player " .. name .. " enables all globalsteps")
-		globalsteps_enabled = true
+		globalsteps_disabled = {}
+	end
+})
+
+minetest.register_chatcommand("globalstep_status", {
+	description = "shows the disabled globalsteps",
+	func = function(name, param)
+    local list = "Disabled globalsteps:"
+
+    for mod in pairs(globalsteps_disabled) do
+      list = list .. " " .. mod
+    end
+
+    return true, list
 	end
 })

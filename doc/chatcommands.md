@@ -23,12 +23,21 @@ Use with care!
 * Enables all lbm's
 * **privs:** server
 
-## /globalstep_disable
+## /globalstep_disable <name>
 
-* Disables all globalsteps
+* Disables all globalstep in the mod <name>
 * **privs:** server
 
-## /globalstep_enable
+## /globalstep_enable <name>
+
+* Enables all globalsteps in the mod <name>
+* **privs:** server
+
+## /globalsteps_enable
 
 * Enables all globalsteps
 * **privs:** server
+
+## /globalstep_status
+
+* shows all disabled globalsteps
