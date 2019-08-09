@@ -28,6 +28,8 @@ if not monitoring.settings.builtin_disable then
 
   dofile(MP.."/builtin/version.lua")
   dofile(MP.."/builtin/abm_calls.lua")
+  dofile(MP.."/builtin/add_particle.lua")
+  dofile(MP.."/builtin/add_particlespawner.lua")
   dofile(MP.."/builtin/auth_fail.lua")
   dofile(MP.."/builtin/chat_count.lua")
   dofile(MP.."/builtin/cheat_count.lua")
