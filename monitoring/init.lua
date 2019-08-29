@@ -6,9 +6,10 @@ monitoring = {
   settings = {
     prom_push_url = minetest.settings:get("monitoring.prometheus_push_url"),
     prom_push_key = minetest.settings:get("monitoring.prometheus_push_key") or "",
-    builtin_disable = minetest.settings:get("monitoring.builtin_disable"),
-    csv_enable = minetest.settings:get("monitoring.csv_enable"),
-    json_enable = minetest.settings:get("monitoring.json_enable")
+    builtin_disable = minetest.settings:get_bool("monitoring.builtin_disable"),
+    csv_enable = minetest.settings:get_bool("monitoring.csv_enable"),
+    json_enable = minetest.settings:get_bool("monitoring.json_enable"),
+    debug = minetest.settings:get_bool("monitoring.debug")
   }
 }
 
@@ -18,6 +19,8 @@ local MP = minetest.get_modpath("monitoring")
 dofile(MP.."/metrictypes/gauge.lua")
 dofile(MP.."/metrictypes/counter.lua")
 dofile(MP.."/metrictypes/histogram.lua")
+
+dofile(MP.."/register.lua")
 
 dofile(MP.."/export/prometheus_push.lua")
 dofile(MP.."/export/csv.lua")

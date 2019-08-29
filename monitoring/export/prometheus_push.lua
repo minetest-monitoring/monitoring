@@ -55,6 +55,14 @@ local push_metrics = function()
   export_metric_collect_time.set(t_collect_us / 1000000)
   t0 = minetest.get_us_time()
 
+  if monitoring.settings.debug then
+	local file = io.open(minetest.get_worldpath().."/prometheus.txt", "w" );
+	if file then
+		file:write(data);
+		file:close();
+	end
+
+  end
 
   --print(data)
   export_size.inc(string.len(data))

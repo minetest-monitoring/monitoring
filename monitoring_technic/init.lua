@@ -1,4 +1,4 @@
-if not minetest.get_mod_path("technic") then
+if not minetest.get_modpath("technic") then
         print("[monitoring] technic extension not loaded")
         return
 else

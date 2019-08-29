@@ -1,5 +1,5 @@
 
-if not minetest.get_mod_path("advtrains") then
+if not minetest.get_modpath("advtrains") then
 	print("[monitoring] advtrains extension not loaded")
 	return
 else

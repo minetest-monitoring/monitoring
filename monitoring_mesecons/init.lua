@@ -1,4 +1,4 @@
-if not minetest.get_mod_path("mesecons") then
+if not minetest.get_modpath("mesecons") then
         print("[monitoring] mesecons extension not loaded")
         return
 else
