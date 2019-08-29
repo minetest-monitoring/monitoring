@@ -1,3 +1,12 @@
+
+if not minetest.get_mod_path("advtrains") then
+	print("[monitoring] advtrains extension not loaded")
+	return
+else
+	print("[monitoring] advtrains extension loaded")
+end
+
+
 local metric_ndb_count = monitoring.gauge("advtrains_ndb_count", "count of advtrains ndb items")
 local metric_train_count = monitoring.gauge("advtrains_train_count", "count of trains")
 local metric_wagon_count = monitoring.gauge("advtrains_wagon_count", "count of wagons")

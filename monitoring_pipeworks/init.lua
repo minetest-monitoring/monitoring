@@ -1,3 +1,10 @@
+if not minetest.get_mod_path("pipeworks") then
+        print("[monitoring] pipeworks extension not loaded")
+        return
+else
+        print("[monitoring] pipeworks extension loaded")
+end
+
 
 local metric_tube_inject_item_calls = monitoring.counter("pipeworks_tube_inject_item_calls", "count of pipeworks.tube_inject_item calls")
 local metric_tube_inject_item_time = monitoring.counter("pipeworks_tube_inject_item_time", "time of pipeworks.tube_inject_item calls")

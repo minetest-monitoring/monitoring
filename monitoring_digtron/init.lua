@@ -1,3 +1,12 @@
+
+if not minetest.get_mod_path("digtron") then
+        print("[monitoring] digtron extension not loaded")
+        return
+else
+        print("[monitoring] digron extension loaded")
+end
+
+
 local metric_move_cycle = monitoring.counter(
 	"digtron_move_cycle_count",
 	"number of digtron move cycles"

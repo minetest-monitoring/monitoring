@@ -1,3 +1,10 @@
+if not minetest.get_mod_path("technic") then
+        print("[monitoring] technic extension not loaded")
+        return
+else
+        print("[monitoring] technic extension loaded")
+end
+
 
 for _, abm in ipairs(minetest.registered_abms) do
 

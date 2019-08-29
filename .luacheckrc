@@ -3,7 +3,13 @@ allow_defined_top = true
 
 globals = {
 	"luaentity",
-	"minetest"
+	"minetest",
+	"advtrains",
+	"digtron",
+	"DigtronLayout",
+	"pipeworks",
+	"mesecon",
+	"technic"
 }
 
 read_globals = {
@@ -14,4 +20,5 @@ read_globals = {
 	-- Minetest
 	"vector", "ItemStack",
 	"dump"
+
 }
