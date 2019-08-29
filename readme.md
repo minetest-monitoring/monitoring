@@ -21,14 +21,12 @@ Provides a [prometheus](https://prometheus.io) monitoring endpoint (via push-gat
 * Supports the **gauge**, **counter** and **histogram** metrics
 
 ## Mod integrations
-Those are in separate repositories:
 
-* https://github.com/thomasrudin-mt/monitoring_advtrains
-* https://github.com/thomasrudin-mt/monitoring_mesecons
-* https://github.com/thomasrudin-mt/monitoring_technic
-* https://github.com/thomasrudin-mt/monitoring_digtron
-* https://github.com/thomasrudin-mt/monitoring_pipeworks
-* https://github.com/thomasrudin-mt/monitoring_protection
+* advtrains
+* technic
+* mesecons
+* digtron
+* protector
 
 ## Screenshots
 
