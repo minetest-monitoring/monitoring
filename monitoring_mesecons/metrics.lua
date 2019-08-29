@@ -1,23 +1,14 @@
-local metric_action_queue_count = monitoring.counter("mesecons_action_queue_count", "number of action queue items")
 
-local metric_action_execute_count = monitoring.counter("mesecons_action_execute_count", "number of action queue executes")
-local metric_action_execute_time = monitoring.counter("mesecons_action_execute_time", "total time of action queue executes in us")
 
-local metric_get_node_force_count = monitoring.counter("mesecons_get_node_force_count", "number of get_node_force executes")
-local metric_get_node_force_time = monitoring.counter("mesecons_get_node_force_time", "total time of get_node_force executes in us")
+monitoring.wrap_global({"mesecon", "queue", "add_action"}, "mesecons_queue_action_add")
+monitoring.wrap_global({"mesecon", "queue", "execute"}, "mesecons_queue_execute")
+monitoring.wrap_global({"mesecon", "queue", "get_node_force"}, "mesecons_queue_get_node_force")
+monitoring.wrap_global({"mesecon", "activate"}, "mesecons_activate")
+monitoring.wrap_global({"mesecon", "deactivate"}, "mesecons_deactivate")
+monitoring.wrap_global({"mesecon", "turnon"}, "mesecons_turnon")
+monitoring.wrap_global({"mesecon", "turnoff"}, "mesecons_turnoff")
+monitoring.wrap_global({"mesecon", "changesignal"}, "mesecons_changesignal")
 
-local metric_action_queue_size = monitoring.gauge("mesecons_action_queue_size", "size of action queue")
-
--- metric overrides
-mesecon.queue.add_action = metric_action_queue_count.wrap(mesecon.queue.add_action)
-mesecon.queue.execute = metric_action_execute_count.wrap( metric_action_execute_time.wraptime(mesecon.queue.execute) )
-mesecon.get_node_force = metric_get_node_force_count.wrap( metric_get_node_force_time.wraptime(mesecon.get_node_force) )
-
-mesecon.activate = monitoring.counter("mesecons_activate_count", "mesecon.activate call count")
-.wrap(monitoring.counter("mesecons_activate_time", "mesecon.activate time usage").wraptime(mesecon.activate))
-
-mesecon.turnon = monitoring.counter("mesecons_turnon_count", "mesecon.turnon() call count")
-.wrap(monitoring.counter("mesecons_turnon_time", "mesecon.turnon() time usage").wraptime(mesecon.turnon))
 
 
 -- function metrics
@@ -50,27 +41,10 @@ mesecon.queue.execute = function(self, action)
 	old_execute(self, action)
 end
 
---[[
-local old_add_action = mesecon.queue.add_action
-mesecon.queue.add_action = function(self, pos, func, params, time, overwritecheck, priority)
-  print("add_action: " .. minetest.pos_to_string(pos) .. " function: " .. func)
-  if time then
-    print(" + time: " .. dump(time))
-  end
-
-  if priority then
-    print(" + priority: " .. dump(priority))
-  end
-
-  if overwritecheck then
-    print(" + overwritecheck: " .. dump(overwritecheck))
-  end
-
-	old_add_action(self, pos, func, params, time, overwritecheck, priority)
-end
---]]
 
 -- queue size metric
+local metric_action_queue_size = monitoring.gauge("mesecons_action_queue_size", "size of action queue")
+
 local timer = 0
 minetest.register_globalstep(function(dtime)
 	timer = timer + dtime
