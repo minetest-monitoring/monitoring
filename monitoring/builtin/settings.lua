@@ -2,7 +2,10 @@
 
 local settings = {
 	"max_packets_per_iteration",
+
+	-- possibly live-setting when client relogs
 	"max_simultaneous_block_sends_per_client",
+
 	"max_users",
 	"active_block_range",
 	"active_object_send_range_blocks",
