@@ -68,5 +68,4 @@ function register_action_on_metric(nodename, metricname, prettyname)
 end
 
 register_action_on_metric("pipeworks:mese_filter", "mese_filter", "Mese filter")
-register_action_on_metric("pipeworks:digiline_filter", "digiline_filter", "Digiline filter")
 register_action_on_metric("pipeworks:filter", "filter", "Filter")
