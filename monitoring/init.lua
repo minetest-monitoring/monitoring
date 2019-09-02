@@ -49,6 +49,7 @@ if not monitoring.settings.builtin_disable then
   dofile(MP.."/builtin/generated.lua")
   dofile(MP.."/builtin/get_node.lua")
   dofile(MP.."/builtin/get_voxel_manip.lua")
+  dofile(MP.."/builtin/get_objects_inside_radius.lua")
   dofile(MP.."/builtin/globalstep.lua")
   dofile(MP.."/builtin/join_count.lua")
   dofile(MP.."/builtin/lag.lua")
