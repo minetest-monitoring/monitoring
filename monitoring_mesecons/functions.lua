@@ -8,6 +8,7 @@ local metric_function_receptor_on_count = monitoring.counter("mesecons_function_
 local metric_function_receptor_off_count = monitoring.counter("mesecons_function_receptor_off_count", "number of receptor_off function executes")
 local metric_function_lc_interrupt_count = monitoring.counter("mesecons_function_lc_interrupt_count", "number of lc_interrupt function executes")
 local metric_function_lc_digiline_relay_count = monitoring.counter("mesecons_function_lc_digiline_relay_count", "number of lc_digiline_relay function executes")
+local metric_function_other = monitoring.counter("mesecons_function_other", "number of other function executes")
 
 local old_execute = mesecon.queue.execute
 mesecon.queue.execute = function(self, action)
@@ -25,6 +26,8 @@ mesecon.queue.execute = function(self, action)
 		metric_function_receptor_on_count.inc()
 	elseif action.func == "receptor_off" then
 		metric_function_receptor_off_count.inc()
+	else
+		metric_function_other.inc()
 	end
 
 	old_execute(self, action)
