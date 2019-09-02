@@ -69,3 +69,9 @@ end
 
 register_action_on_metric("pipeworks:mese_filter", "mese_filter", "Mese filter")
 register_action_on_metric("pipeworks:filter", "filter", "Filter")
+
+register_action_on_metric("pipeworks:dispenser_off", "dispenser", "Dispenser")
+register_action_on_metric("pipeworks:deployer_off", "deployer", "Deployer")
+register_action_on_metric("pipeworks:nodebreaker_off", "nodebreaker", "Nodebreaker")
+
+
