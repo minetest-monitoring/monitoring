@@ -8,4 +8,4 @@ monitoring.wrap_global({"mesecon", "deactivate"}, "mesecons_deactivate")
 monitoring.wrap_global({"mesecon", "turnon"}, "mesecons_turnon")
 monitoring.wrap_global({"mesecon", "turnoff"}, "mesecons_turnoff")
 monitoring.wrap_global({"mesecon", "changesignal"}, "mesecons_changesignal")
-
+monitoring.wrap_global({"mesecon", "swap_node_force"}, "swap_node_force")
