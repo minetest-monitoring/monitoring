@@ -64,6 +64,7 @@ end
 
 local stepnum = 1
 
+-- advtrains globalstep
 for i, globalstep in ipairs(minetest.registered_globalsteps) do
 	local info = minetest.callback_origins[globalstep]
 	if not info then
