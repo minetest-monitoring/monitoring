@@ -13,7 +13,7 @@ local settings = {
 for _, setting in ipairs(settings) do
 	local name = setting:gsub("[.]", "_")
 
-	local metric = monitoring.gauge("setting_", "setting: " .. setting)
+	local metric = monitoring.gauge("setting_" .. name, "setting: " .. setting)
 
 	local value = minetest.settings:get(setting)
 
