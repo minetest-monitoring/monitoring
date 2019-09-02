@@ -1,4 +1,6 @@
 
+local stepnum = 1
+
 
 -- mesecons globalsteps
 for i, globalstep in ipairs(minetest.registered_globalsteps) do
