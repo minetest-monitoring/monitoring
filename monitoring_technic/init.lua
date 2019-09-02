@@ -16,43 +16,21 @@ for _, abm in ipairs(minetest.registered_abms) do
       .wrap(abm.action)
 
     abm.action = monitoring
-      .histogram("technic_switching_station_abm_latency",
-        "latency of the technic switch abm calls",
-        {0.001, 0.005, 0.01, 0.02, 0.1, 0.5, 1.0})
-      .wrap(abm.action)
+      .counter("technic_switching_station_abm_time", "time of technic switch abm calls")
+      .wraptime(abm.action)
   end
 
-  if abm.label == "Machines: timeout check" then
-    print("[monitoring] wrapping technic machine timeout check")
-
-    abm.action = monitoring
-      .counter("technic_machine_timeout_abm_count", "number of technic machine timeout abm calls")
-      .wrap(abm.action)
-
-    abm.action = monitoring
-      .histogram("technic_machine_timeout_abm_latency",
-        "latency of the technic machine timeout abm calls",
-        {0.001, 0.005, 0.01, 0.02, 0.1, 0.5, 1.0})
-      .wrap(abm.action)
-  end
 
 end
 
 
-if minetest.get_modpath("technic") then
-  local quarry_node = minetest.registered_nodes["technic:quarry"]
-  if quarry_node ~= nil then
-    print("[monitoring] wrapping quarry.technic_run")
 
-    quarry_node.technic_run = monitoring
-      .counter("technic_quarry_dig_count", "number of technic quarry digs")
-      .wrap(quarry_node.technic_run)
-  end
+local quarry_node = minetest.registered_nodes["technic:quarry"]
+if quarry_node ~= nil then
+	print("[monitoring] wrapping quarry.technic_run")
 
-  print("[monitoring] wrapping technic.get_or_load_node")
-  technic.get_or_load_node = monitoring
-    .histogram("technic_get_or_load_node_latency",
-      "latency of the technic get_or_load_node calls",
-      {0.001, 0.005, 0.01, 0.02, 0.1, 0.5, 1.0})
-    .wrap(technic.get_or_load_node)
+	quarry_node.technic_run = monitoring
+	.counter("technic_quarry_dig_count", "number of technic quarry digs")
+	.wrap(quarry_node.technic_run)
 end
+

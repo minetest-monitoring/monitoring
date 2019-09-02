@@ -5,11 +5,9 @@ Base-mod: https://github.com/thomasrudin-mt/monitoring
 
 # Metrics
 
-* **technic_switching_station_abm_count** number of technic switch abm calls
-* **technic_switching_station_abm_latency** latency of the technic switch abm calls (histogram)
-* **technic_machine_timeout_abm_count** number of technic machine timeout abm calls
-* **technic_machine_timeout_abm_latency** latency of the technic machine timeout abm calls (histogram)
-* **technic_quarry_dig_count** number of technic quarry digs
+* **technic_switching_station_abm_count**
+* **technic_switching_station_abm_time**
+* **technic_quarry_dig_count**
 
 
 # License
