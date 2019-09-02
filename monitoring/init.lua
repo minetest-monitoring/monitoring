@@ -70,6 +70,7 @@ if not monitoring.settings.builtin_disable then
   dofile(MP.."/builtin/ticks.lua")
   dofile(MP.."/builtin/time.lua")
   dofile(MP.."/builtin/uptime.lua")
+  dofile(MP.."/builtin/settings.lua")
 end
 
 if monitoring.settings.prom_push_url then
