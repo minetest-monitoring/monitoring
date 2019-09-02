@@ -1,6 +1,0 @@
-protector_redo?
-protector?
-priv_protector?
-areas?
-xp_redo?
-monitoring
