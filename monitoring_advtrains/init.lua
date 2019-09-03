@@ -6,12 +6,17 @@ else
 	print("[monitoring] advtrains extension loaded")
 end
 
+monitoring.wrap_global({"advtrains", "mainloop_trainlogic"}, "advtrains_mainloop_trainlogic")
+monitoring.wrap_global({"advtrains", "ndb", "save_data"}, "advtrains_ndb_save_data")
+monitoring.wrap_global({"advtrains", "avt_save"}, "advtrains_avt_save")
+monitoring.wrap_global({"atlatc", "mainloop_stepcode"}, "advtrains_atlatc_mainloop_stepcode")
+monitoring.wrap_global({"atlatc", "interrupt", "mainloop"}, "advtrains_atlatc_interrupt_mainloop")
+monitoring.wrap_global({"atlatc", "run_stepcode"}, "advtrains_atlatc_run_stepcode")
+
 
 local metric_ndb_count = monitoring.gauge("advtrains_ndb_count", "count of advtrains ndb items")
 local metric_train_count = monitoring.gauge("advtrains_train_count", "count of trains")
 local metric_wagon_count = monitoring.gauge("advtrains_wagon_count", "count of wagons")
-local metric_save_latency = monitoring.gauge("advtrains_ndb_save_latency", "ndb save latency")
-local metric_save_avt_latency = monitoring.gauge("advtrains_avt_save_latency", "avt save latency")
 
 
 local timer = 0
@@ -45,22 +50,6 @@ minetest.register_globalstep(function(dtime)
 
 end)
 
-local old_save_data = advtrains.ndb.save_data
-advtrains.ndb.save_data = function()
-	local t0 = minetest.get_us_time()
-	local ndb = old_save_data()
-	local t1 = minetest.get_us_time()
-	metric_save_latency.set(t1 - t0)
-	return ndb
-end
-
-local old_avt_save = advtrains.avt_save
-advtrains.avt_save = function(remove_players_from_wagons)
-        local t0 = minetest.get_us_time()
-        old_avt_save(remove_players_from_wagons)
-        local t1 = minetest.get_us_time()
-        metric_save_avt_latency.set(t1 - t0)
-end
 
 local stepnum = 1
 
