@@ -8,7 +8,8 @@ end
 
 local max_time_metric = monitoring.gauge(
 	"technic_switching_station_abm_time_max",
-	"max time of technic switch abm calls"
+	"max time of technic switch abm calls",
+	{ autoflush=true }
 )
 
 
