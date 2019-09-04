@@ -9,3 +9,9 @@ monitoring.wrap_global({"mesecon", "turnon"}, "mesecons_turnon")
 monitoring.wrap_global({"mesecon", "turnoff"}, "mesecons_turnoff")
 monitoring.wrap_global({"mesecon", "changesignal"}, "mesecons_changesignal")
 monitoring.wrap_global({"mesecon", "swap_node_force"}, "swap_node_force")
+
+monitoring.wrap_global({"mesecon", "vm_begin"}, "mesecons_vm_begin")
+monitoring.wrap_global({"mesecon", "vm_abort"}, "mesecons_vm_abort")
+monitoring.wrap_global({"mesecon", "vm_commit"}, "mesecons_vm_commit")
+
+
