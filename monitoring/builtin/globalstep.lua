@@ -1,6 +1,10 @@
 local metric_callbacks = monitoring.gauge("globalstep_callback_count", "number of globalstep callbacks")
 local metric = monitoring.counter("globalstep_count", "number of globalstep calls")
 local metric_time = monitoring.counter("globalstep_time", "time usage in microseconds for globalstep calls")
+local metric_time_max = monitoring.counter(
+	"globalstep_time_max",
+	"max time usage in microseconds for globalstep calls"
+)
 
 -- modname -> bool
 local globalsteps_disabled = {}
@@ -26,6 +30,7 @@ minetest.register_on_mods_loaded(function()
       local t1 = minetest.get_us_time()
       local diff = t1 - t0
       metric_time.inc(diff)
+      metric_time_max.setmax(diff)
 
       if diff > 75000 then
         minetest.log("warning", "[monitoring] globalstep took " .. diff .. " us in mod " .. (info.mod or "<unknown>"))
