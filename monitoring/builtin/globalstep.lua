@@ -3,7 +3,8 @@ local metric = monitoring.counter("globalstep_count", "number of globalstep call
 local metric_time = monitoring.counter("globalstep_time", "time usage in microseconds for globalstep calls")
 local metric_time_max = monitoring.gauge(
 	"globalstep_time_max",
-	"max time usage in microseconds for globalstep calls"
+	"max time usage in microseconds for globalstep calls",
+	{ autoflush=true }
 )
 
 -- modname -> bool

@@ -3,7 +3,8 @@ local metric_time = monitoring.counter("nodetimer_time", "time usage in microsec
 
 local metric_time_max = monitoring.gauge(
         "nodetimer_time_max",
-        "max time usage in microseconds for nodetimer calls"
+        "max time usage in microseconds for nodetimer calls",
+	{ autoflush=true }
 )
 
 

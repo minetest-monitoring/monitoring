@@ -3,7 +3,8 @@ local metric_time = monitoring.counter("lbm_time", "time usage in microseconds f
 
 local metric_time_max = monitoring.gauge(
         "lbm_time_max",
-        "max time usage in microseconds for lbm calls"
+        "max time usage in microseconds for lbm calls",
+	{ autoflush=true }
 )
 
 
