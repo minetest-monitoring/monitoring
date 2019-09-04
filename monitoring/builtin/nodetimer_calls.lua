@@ -1,6 +1,12 @@
 local metric = monitoring.counter("nodetimer_count", "number of nodetime calls")
 local metric_time = monitoring.counter("nodetimer_time", "time usage in microseconds for nodetimer calls")
 
+local metric_time_max = monitoring.gauge(
+        "nodetimer_time_max",
+        "max time usage in microseconds for nodetimer calls"
+)
+
+
 local global_nodetimer_enabled = true
 
 minetest.register_on_mods_loaded(function()
@@ -18,8 +24,11 @@ minetest.register_on_mods_loaded(function()
         local t0 = minetest.get_us_time()
         local result = old_action(pos, elapsed)
         local t1 = minetest.get_us_time()
+	local diff = t1 - t0
 
-        metric_time.inc(t1 - t0)
+	metric_time.inc(diff)
+	metric_time_max.setmax(diff)
+
         return result
       end
     end
