@@ -1,7 +1,7 @@
 local metric_callbacks = monitoring.gauge("globalstep_callback_count", "number of globalstep callbacks")
 local metric = monitoring.counter("globalstep_count", "number of globalstep calls")
 local metric_time = monitoring.counter("globalstep_time", "time usage in microseconds for globalstep calls")
-local metric_time_max = monitoring.counter(
+local metric_time_max = monitoring.gauge(
 	"globalstep_time_max",
 	"max time usage in microseconds for globalstep calls"
 )
