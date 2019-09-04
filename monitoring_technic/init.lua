@@ -6,10 +6,28 @@ else
 end
 
 
+local max_time_metric = monitoring.gauge(
+	"technic_switching_station_abm_time_max",
+	"max time of technic switch abm calls"
+)
+
+
 for _, abm in ipairs(minetest.registered_abms) do
 
   if abm.label == "Switching Station" then
     print("[monitoring] wrapping switching station abm")
+
+    -- max time peaks for switching stations
+    local old_action = abm.action
+    abm.action = function(...)
+
+	    local t0 = minetest.get_us_time()
+	    old_action(...)
+	    local t1 = minetest.get_us_time()
+	    local diff = t1 -t0
+
+	    max_time_metric.setmax(diff)
+    end
 
     abm.action = monitoring
       .counter("technic_switching_station_abm_count", "number of technic switch abm calls")
