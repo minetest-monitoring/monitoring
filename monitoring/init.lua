@@ -39,6 +39,7 @@ if not monitoring.settings.builtin_disable then
   dofile(MP.."/builtin/auth_fail.lua")
   dofile(MP.."/builtin/chat_count.lua")
   dofile(MP.."/builtin/cheat_count.lua")
+  dofile(MP.."/builtin/check_for_falling.lua")
   dofile(MP.."/builtin/craft_count.lua")
   dofile(MP.."/builtin/dig_count.lua")
   dofile(MP.."/builtin/eat_count.lua")
