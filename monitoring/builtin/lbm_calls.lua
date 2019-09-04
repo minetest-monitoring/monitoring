@@ -1,6 +1,12 @@
 local metric = monitoring.counter("lbm_count", "number of lbm calls")
 local metric_time = monitoring.counter("lbm_time", "time usage in microseconds for lbm calls")
 
+local metric_time_max = monitoring.gauge(
+        "lbm_time_max",
+        "max time usage in microseconds for lbm calls"
+)
+
+
 local global_lbms_enabled = true
 
 minetest.register_on_mods_loaded(function()
@@ -16,7 +22,9 @@ minetest.register_on_mods_loaded(function()
       local t0 = minetest.get_us_time()
       old_action(pos, node)
       local t1 = minetest.get_us_time()
-      metric_time.inc(t1 - t0)
+      local diff = t1 - t0
+      metric_time.inc(diff)
+      metric_time_max.setmax(diff)
     end
   end
 end)

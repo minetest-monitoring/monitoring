@@ -1,6 +1,12 @@
 local metric = monitoring.counter("abm_count", "number of abm calls")
 local metric_time = monitoring.counter("abm_time", "time usage in microseconds for abm calls")
 
+local metric_time_max = monitoring.gauge(
+        "abm_time_max",
+        "max time usage in microseconds for abm calls"
+)
+
+
 local global_abms_enabled = true
 
 minetest.register_on_mods_loaded(function()
@@ -16,7 +22,9 @@ minetest.register_on_mods_loaded(function()
       local t0 = minetest.get_us_time()
       old_action(pos, node, active_object_count, active_object_count_wider)
       local t1 = minetest.get_us_time()
-      metric_time.inc(t1 - t0)
+      local diff = t1 - t0
+      metric_time.inc(diff)
+      metric_time_max.setmax(diff)
     end
   end
 end)
