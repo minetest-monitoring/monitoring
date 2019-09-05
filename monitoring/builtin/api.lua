@@ -8,6 +8,8 @@ monitoring.wrap_global({"minetest", "add_particlespawner"}, "add_particlespawner
 
 monitoring.wrap_global({"minetest", "get_node"}, "get_node")
 monitoring.wrap_global({"minetest", "get_node_or_nil"}, "get_node_or_nil")
+monitoring.wrap_global({"minetest", "get_meta"}, "get_meta")
+
 
 monitoring.wrap_global({"minetest", "find_node_near"}, "find_node_near")
 monitoring.wrap_global({"minetest", "find_nodes_in_area"}, "find_nodes_in_area")
