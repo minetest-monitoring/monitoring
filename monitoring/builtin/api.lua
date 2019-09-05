@@ -21,5 +21,9 @@ monitoring.wrap_global({"minetest", "get_objects_inside_radius"}, "get_objects_i
 monitoring.wrap_global({"minetest", "set_node"}, "set_node")
 monitoring.wrap_global({"minetest", "find_path"}, "find_path")
 
+monitoring.wrap_global({"minetest", "check_for_falling"}, "check_for_falling")
+
+
+
 
 
