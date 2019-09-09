@@ -14,6 +14,10 @@ local metric_action_queue_size_max = monitoring.gauge(
 )
 
 minetest.register_globalstep(function(dtime)
+	if not mesecon.queue.actions then
+		return
+	end
+
 	metric_action_queue_size.set(#mesecon.queue.actions)
 	metric_action_queue_size_max.setmax(#mesecon.queue.actions)
 end)
