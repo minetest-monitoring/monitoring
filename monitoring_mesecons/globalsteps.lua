@@ -2,7 +2,8 @@
 
 local max_time_metric = monitoring.gauge(
         "mesecons_globalstep_time_max",
-        "max timing of the mesecons globalsteps"
+        "max timing of the mesecons globalsteps",
+	{ autoflush=true }
 )
 
 
