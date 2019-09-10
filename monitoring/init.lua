@@ -41,6 +41,7 @@ if not monitoring.settings.builtin_disable then
   dofile(MP.."/builtin/forceload_blocks.lua")
   dofile(MP.."/builtin/generated.lua")
   dofile(MP.."/builtin/globalstep.lua")
+  dofile(MP.."/builtin/jit.lua")
   dofile(MP.."/builtin/join_count.lua")
   dofile(MP.."/builtin/lag.lua")
   dofile(MP.."/builtin/lbm_calls.lua")
