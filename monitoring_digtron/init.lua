@@ -3,7 +3,7 @@ if not minetest.get_modpath("digtron") then
         print("[monitoring] digtron extension not loaded")
         return
 else
-        print("[monitoring] digron extension loaded")
+        print("[monitoring] digtron extension loaded")
 end
 
 
