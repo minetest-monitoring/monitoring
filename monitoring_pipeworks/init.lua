@@ -74,4 +74,5 @@ register_action_on_metric("pipeworks:dispenser_off", "dispenser", "Dispenser")
 register_action_on_metric("pipeworks:deployer_off", "deployer", "Deployer")
 register_action_on_metric("pipeworks:nodebreaker_off", "nodebreaker", "Nodebreaker")
 
+monitoring.wrap_global({"pipeworks", "create_fake_player"}, "pipeworks_create_fake_player")
 
