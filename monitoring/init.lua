@@ -21,6 +21,7 @@ dofile(MP.."/metrictypes/counter.lua")
 dofile(MP.."/metrictypes/histogram.lua")
 
 dofile(MP.."/register.lua")
+dofile(MP.."/sampling.lua")
 
 dofile(MP.."/export/prometheus_push.lua")
 dofile(MP.."/export/csv.lua")
