@@ -13,6 +13,11 @@ monitoring.wrap_global({"atlatc", "mainloop_stepcode"}, "advtrains_atlatc_mainlo
 monitoring.wrap_global({"atlatc", "interrupt", "mainloop"}, "advtrains_atlatc_interrupt_mainloop")
 monitoring.wrap_global({"atlatc", "run_stepcode"}, "advtrains_atlatc_run_stepcode")
 
+-- contained in advtrains.mainloop_trainlogic()
+monitoring.wrap_global({"advtrains", "train_ensure_init"}, "advtrains_train_ensure_init")
+monitoring.wrap_global({"advtrains", "train_step_b"}, "advtrains_train_step_b")
+monitoring.wrap_global({"advtrains", "train_step_c"}, "advtrains_train_step_c")
+
 
 local metric_ndb_count = monitoring.gauge("advtrains_ndb_count", "count of advtrains ndb items")
 local metric_train_count = monitoring.gauge("advtrains_train_count", "count of trains")
@@ -76,4 +81,3 @@ for i, globalstep in ipairs(minetest.registered_globalsteps) do
 		stepnum = stepnum + 1
 	end
 end
-

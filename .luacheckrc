@@ -2,6 +2,7 @@ unused_args = false
 allow_defined_top = true
 
 globals = {
+	"monitoring",
 	"luaentity",
 	"minetest",
 	"advtrains",
