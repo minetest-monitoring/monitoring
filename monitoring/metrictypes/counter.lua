@@ -1,4 +1,6 @@
 
+local reentry_map = {}
+
 monitoring.counter = function(name, help)
   local metric = {
     name = name,
@@ -26,9 +28,16 @@ monitoring.counter = function(name, help)
     -- wrap a function and increment time on every call
     wraptime = function(f)
       return function(...)
+        if reentry_map[metric.name] then
+          -- already measuring time for this metric
+          return f(...)
+        end
+
         local t0 = minetest.get_us_time()
 
+        reentry_map[metric.name] = true
         local result1, result2, result3 = f(...)
+        reentry_map[metric.name] = nil
 
         local t1 = minetest.get_us_time()
         local diff = t1 - t0
