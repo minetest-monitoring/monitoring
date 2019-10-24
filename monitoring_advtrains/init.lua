@@ -18,6 +18,15 @@ monitoring.wrap_global({"advtrains", "train_ensure_init"}, "advtrains_train_ensu
 monitoring.wrap_global({"advtrains", "train_step_b"}, "advtrains_train_step_b")
 monitoring.wrap_global({"advtrains", "train_step_c"}, "advtrains_train_step_c")
 
+-- utils, used by advtrains.train_step_c()
+monitoring.wrap_global({"advtrains", "path_clear_unused"}, "advtrains_path_clear_unused")
+monitoring.wrap_global({"advtrains", "path_setrestore"}, "advtrains_path_setrestore")
+monitoring.wrap_global({"advtrains", "spawn_wagons"}, "advtrains_spawn_wagons")
+monitoring.wrap_global({"advtrains", "train_check_couples"}, "advtrains_train_check_couples")
+monitoring.wrap_global({"advtrains", "path_get_index_by_offset"}, "advtrains_path_get_index_by_offset")
+monitoring.wrap_global({"advtrains", "path_get"}, "advtrains_path_get")
+-- monitoring.wrap_global({"advtrains", ""}, "advtrains_")
+
 
 local metric_ndb_count = monitoring.gauge("advtrains_ndb_count", "count of advtrains ndb items")
 local metric_train_count = monitoring.gauge("advtrains_train_count", "count of trains")
