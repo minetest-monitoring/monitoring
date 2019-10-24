@@ -13,20 +13,23 @@ monitoring.wrap_global({"atlatc", "mainloop_stepcode"}, "advtrains_atlatc_mainlo
 monitoring.wrap_global({"atlatc", "interrupt", "mainloop"}, "advtrains_atlatc_interrupt_mainloop")
 monitoring.wrap_global({"atlatc", "run_stepcode"}, "advtrains_atlatc_run_stepcode")
 
--- contained in advtrains.mainloop_trainlogic()
-monitoring.wrap_global({"advtrains", "train_ensure_init"}, "advtrains_train_ensure_init")
-monitoring.wrap_global({"advtrains", "train_step_b"}, "advtrains_train_step_b")
-monitoring.wrap_global({"advtrains", "train_step_c"}, "advtrains_train_step_c")
+if minetest.settings:get_bool("monitoring.advtrains.verbose") then
 
--- utils, used by advtrains.train_step_c()
-monitoring.wrap_global({"advtrains", "path_clear_unused"}, "advtrains_path_clear_unused")
-monitoring.wrap_global({"advtrains", "path_setrestore"}, "advtrains_path_setrestore")
-monitoring.wrap_global({"advtrains", "spawn_wagons"}, "advtrains_spawn_wagons")
-monitoring.wrap_global({"advtrains", "train_check_couples"}, "advtrains_train_check_couples")
-monitoring.wrap_global({"advtrains", "path_get_index_by_offset"}, "advtrains_path_get_index_by_offset")
-monitoring.wrap_global({"advtrains", "path_get"}, "advtrains_path_get")
--- monitoring.wrap_global({"advtrains", ""}, "advtrains_")
+	-- contained in advtrains.mainloop_trainlogic()
+	monitoring.wrap_global({"advtrains", "train_ensure_init"}, "advtrains_train_ensure_init")
+	monitoring.wrap_global({"advtrains", "train_step_b"}, "advtrains_train_step_b")
+	monitoring.wrap_global({"advtrains", "train_step_c"}, "advtrains_train_step_c")
 
+	-- utils, used by advtrains.train_step_c()
+	monitoring.wrap_global({"advtrains", "path_clear_unused"}, "advtrains_path_clear_unused")
+	monitoring.wrap_global({"advtrains", "path_setrestore"}, "advtrains_path_setrestore")
+	monitoring.wrap_global({"advtrains", "spawn_wagons"}, "advtrains_spawn_wagons")
+	monitoring.wrap_global({"advtrains", "train_check_couples"}, "advtrains_train_check_couples")
+	monitoring.wrap_global({"advtrains", "path_get_index_by_offset"}, "advtrains_path_get_index_by_offset")
+	monitoring.wrap_global({"advtrains", "path_get"}, "advtrains_path_get")
+	-- monitoring.wrap_global({"advtrains", ""}, "advtrains_")
+
+end
 
 local metric_ndb_count = monitoring.gauge("advtrains_ndb_count", "count of advtrains ndb items")
 local metric_train_count = monitoring.gauge("advtrains_train_count", "count of trains")

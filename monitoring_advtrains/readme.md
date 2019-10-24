@@ -9,6 +9,9 @@ Base-mod: https://github.com/thomasrudin-mt/monitoring
 * advtrains_train_count *count of trains*
 * advtrains_wagon_count *count of wagons"*
 
+# Settings
+
+* **monitoring.advtrains.verbose** more metrics (bool)
 
 # License
 
