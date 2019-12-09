@@ -13,6 +13,11 @@ Base-mod: https://github.com/thomasrudin-mt/monitoring
 
 * **monitoring.advtrains.verbose** more metrics (bool)
 
+# Chat commands
+
+* **/advtrains_stats** shows stats about trains, wagons and the activity of them
+* **/advtrains_cleanup** removes all non-moving trains
+
 # License
 
 MIT
