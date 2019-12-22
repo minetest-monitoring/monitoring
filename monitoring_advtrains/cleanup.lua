@@ -30,6 +30,14 @@ minetest.register_globalstep(function(dtime)
 end)
 
 
+minetest.register_chatcommand("advtrains_remove", {
+  description = "cleans up the train with the given id",
+  privs = { server = true },
+  func = function(name, param)
+		advtrains.remove_train(param)
+  end
+})
+
 minetest.register_chatcommand("advtrains_cleanup", {
   description = "cleans up all non-automated trains",
   privs = { server = true },
@@ -44,7 +52,6 @@ minetest.register_chatcommand("advtrains_cleanup", {
 	return true, "Removed " .. count .. " trains"
   end
 })
-
 
 minetest.register_chatcommand("advtrains_stats", {
   description = "show advtrains stats",
