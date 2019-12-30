@@ -3,6 +3,7 @@ monitoring = {
   version_major = 1,
   version_minor = 5,
   metrics = {}, -- {name="", help="", type="", ...}
+	storage = minetest.get_mod_storage(),
   settings = {
     prom_push_url = minetest.settings:get("monitoring.prometheus_push_url"),
     prom_push_key = minetest.settings:get("monitoring.prometheus_push_key") or "",
