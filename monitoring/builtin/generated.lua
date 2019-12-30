@@ -5,28 +5,36 @@ local metric_total = monitoring.gauge("mapgen_generated_count_total", "Generated
 
 local total_mapblocks = monitoring.storage:get_int("generated_mapblocks")
 
+-- global function
+function monitoring.increment_total_mapblocks(value)
+	total_mapblocks = total_mapblocks + value
+
+	-- update metric
+	metric_total.set(total_mapblocks)
+
+	-- persist mapblock count
+	monitoring.storage:set_int("generated_mapblocks", total_mapblocks)
+
+	return total_mapblocks
+end
+
 minetest.register_on_generated(function(minp, maxp, seed)
 	-- increment chunk count metric
 	metric.inc()
 
 	-- assume 5 mapblock chunk length here
-	total_mapblocks = total_mapblocks + 125
-	metric_total.set(total_mapblocks)
-
-	-- persist mapblock count
-	monitoring.storage:set_int("generated_mapblocks", total_mapblocks)
+	monitoring.increment_total_mapblocks(125)
 end)
 
-minetest.register_chatcommand("monitoring_set_generated_count", {
-  description = "Sets the generated mapblock count",
+minetest.register_chatcommand("monitoring_increment_generated_count", {
+  description = "Increments the generated mapblock count metric",
   privs = { server = true },
   func = function(name, param)
 		local count = tonumber(param)
 
-		if count and count >= 0 then
-			total_mapblocks = count
-			metric_total.set(total_mapblocks)
-			monitoring.storage:set_int("generated_mapblocks", total_mapblocks)
+		if count then
+			local new_value = monitoring.increment_total_mapblocks(count)
+			return true, "New total: " .. new_value
 		end
   end
 })
