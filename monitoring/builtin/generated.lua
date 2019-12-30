@@ -1,7 +1,7 @@
 -- generated blocks (80x80)
 
 local metric = monitoring.counter("mapgen_generated_count", "Generated mapgen count")
-local metric_total = monitoring.counter("mapgen_generated_count_total", "Generated mapgen total count")
+local metric_total = monitoring.gauge("mapgen_generated_count_total", "Generated mapgen total count")
 
 local total_mapblocks = monitoring.storage:get_int("generated_mapblocks")
 
@@ -25,6 +25,7 @@ minetest.register_chatcommand("monitoring_set_generated_count", {
 
 		if count and count >= 0 then
 			total_mapblocks = count
+			metric_total.set(total_mapblocks)
 			monitoring.storage:set_int("generated_mapblocks", total_mapblocks)
 		end
   end
