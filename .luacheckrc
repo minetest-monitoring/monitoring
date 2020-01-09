@@ -10,7 +10,8 @@ globals = {
 	"DigtronLayout",
 	"pipeworks",
 	"mesecon",
-	"technic"
+	"technic",
+	"replacer"
 }
 
 read_globals = {
