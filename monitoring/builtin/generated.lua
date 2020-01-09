@@ -18,7 +18,7 @@ function monitoring.increment_total_mapblocks(value)
 	return total_mapblocks
 end
 
-minetest.register_on_generated(function(minp, maxp, seed)
+minetest.register_on_generated(function()
 	-- increment chunk count metric
 	metric.inc()
 
@@ -29,7 +29,7 @@ end)
 minetest.register_chatcommand("monitoring_increment_generated_count", {
   description = "Increments the generated mapblock count metric",
   privs = { server = true },
-  func = function(name, param)
+  func = function(_, param)
 		local count = tonumber(param)
 
 		if count then

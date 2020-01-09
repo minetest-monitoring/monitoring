@@ -24,7 +24,7 @@ end
 local timer = 0
 local last_call_t = minetest.get_us_time()
 
-minetest.register_globalstep(function(dtime)
+minetest.register_globalstep(function()
 	-- calculate own delta-time
 	local now = minetest.get_us_time()
 	local deltat = (now - last_call_t) / 1000000

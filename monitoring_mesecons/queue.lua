@@ -13,7 +13,7 @@ local metric_action_queue_size_max = monitoring.gauge(
 	{ autoflush=true }
 )
 
-minetest.register_globalstep(function(dtime)
+minetest.register_globalstep(function()
 	if not mesecon.queue.actions then
 		return
 	end

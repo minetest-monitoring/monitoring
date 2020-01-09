@@ -24,7 +24,7 @@ minetest.register_globalstep(function(dtime)
 	local total_forceloaded = 0
 	local blocks_forceloaded = read_file(wpath.."/force_loaded.txt")
 
-	for _, __ in pairs(blocks_forceloaded) do
+	for _ in pairs(blocks_forceloaded) do
 		total_forceloaded = total_forceloaded + 1
 	end
 

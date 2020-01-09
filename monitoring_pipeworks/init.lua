@@ -32,7 +32,7 @@ minetest.register_globalstep(function(dtime)
 	timer=0
 
 	local count = 0
-	for id, entity in pairs(pipeworks.luaentity.entities) do
+	for _ in pairs(pipeworks.luaentity.entities) do
 		count = count + 1
 	end
 

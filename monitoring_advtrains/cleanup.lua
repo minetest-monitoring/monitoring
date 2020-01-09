@@ -33,7 +33,7 @@ end)
 minetest.register_chatcommand("advtrains_remove", {
   description = "cleans up the train with the given id",
   privs = { server = true },
-  func = function(name, param)
+  func = function(_, param)
 		advtrains.remove_train(param)
   end
 })
@@ -41,7 +41,7 @@ minetest.register_chatcommand("advtrains_remove", {
 minetest.register_chatcommand("advtrains_cleanup", {
   description = "cleans up all non-automated trains",
   privs = { server = true },
-  func = function(name, param)
+  func = function()
 	local count = 0
 	for _, train in pairs(advtrains.trains) do
 		if not active_trains[train.id] then
@@ -55,7 +55,7 @@ minetest.register_chatcommand("advtrains_cleanup", {
 
 minetest.register_chatcommand("advtrains_stats", {
   description = "show advtrains stats",
-  func = function(name, param)
+  func = function()
 		local train_count = 0
 		local wagon_count = 0
 		local active_train_count = 0

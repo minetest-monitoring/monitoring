@@ -73,7 +73,7 @@ local push_metrics = function()
     extra_headers = { "Content-Type: text/plain", "apikey", monitoring.settings.prom_push_key },
     post_data = data,
     timeout = 5
-  }, function(res)
+  }, function()
       local t_post_us = minetest.get_us_time() - t0
       export_metric_post_time.set(t_post_us / 1000000)
   end)

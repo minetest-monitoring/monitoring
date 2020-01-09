@@ -4,7 +4,7 @@ local metric_max = monitoring.gauge("lua_mem_max_kb", "lua max used memory in ki
 
 
 
-minetest.register_globalstep(function(dtime)
+minetest.register_globalstep(function()
 
 	-- https://www.lua.org/manual/5.1/manual.html
 	local mem = collectgarbage("count")

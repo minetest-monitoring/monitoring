@@ -82,7 +82,7 @@ minetest.register_chatcommand("globalstep_enable", {
 minetest.register_chatcommand("globalsteps_enable", {
 	description = "enables all globalsteps",
 	privs = {server=true},
-	func = function(name, param)
+	func = function(name)
 		minetest.log("warning", "Player " .. name .. " enables all globalsteps")
 		globalsteps_disabled = {}
 	end
@@ -90,7 +90,7 @@ minetest.register_chatcommand("globalsteps_enable", {
 
 minetest.register_chatcommand("globalstep_status", {
 	description = "shows the disabled globalsteps",
-	func = function(name, param)
+	func = function()
     local list = "Disabled globalsteps:"
 
     for mod in pairs(globalsteps_disabled) do

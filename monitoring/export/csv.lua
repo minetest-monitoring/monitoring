@@ -2,7 +2,7 @@
 local export_csv = function()
   -- local data = ""
 
-  for _, metric in ipairs(monitoring.metrics) do
+  for _ in ipairs(monitoring.metrics) do
     -- TODO
   end
 end

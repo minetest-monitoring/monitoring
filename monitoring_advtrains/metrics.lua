@@ -40,7 +40,7 @@ minetest.register_globalstep(function(dtime)
   local ndb_nodes = advtrains.ndb.get_nodes()
   for _, ny in pairs(ndb_nodes) do
     for _, nx in pairs(ny) do
-      for _, cid in pairs(nx) do
+      for _ in pairs(nx) do
         count = count + 1
       end
     end
@@ -52,7 +52,7 @@ minetest.register_globalstep(function(dtime)
   for _, train in pairs(advtrains.trains) do
     traincount = traincount + 1
 
-    for _, part in pairs(train.trainparts) do
+    for _ in pairs(train.trainparts) do
       wagoncount = wagoncount + 1
     end
   end
