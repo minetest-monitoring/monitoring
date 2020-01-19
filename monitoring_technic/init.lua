@@ -39,6 +39,16 @@ for _, abm in ipairs(minetest.registered_abms) do
       .wraptime(abm.action)
   end
 
+	if abm.label == "Radiation damage" then
+		abm.action = monitoring
+      .counter("technic_radiation_abm_count", "number of radiation abm calls")
+      .wrap(abm.action)
+
+    abm.action = monitoring
+      .counter("technic_radiation_abm_time", "time of radiation abm calls")
+      .wraptime(abm.action)
+	end
+
 
 end
 
@@ -52,4 +62,3 @@ if quarry_node ~= nil then
 	.counter("technic_quarry_dig_count", "number of technic quarry digs")
 	.wrap(quarry_node.technic_run)
 end
-
