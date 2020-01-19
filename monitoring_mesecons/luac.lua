@@ -29,15 +29,16 @@ for d = 0, 1 do
 
 	local old_on_timer = def.on_timer
 
-	local t0 = minetest.get_us_time()
-	old_on_timer(...)
-	local t1 = minetest.get_us_time()
-	local diff = t1 -t0
+	def.on_timer = function(...)
+		local t0 = minetest.get_us_time()
+		old_on_timer(...)
+		local t1 = minetest.get_us_time()
+		local diff = t1 -t0
 
-	metric_time_max.setmax(diff)
-	metric_time.inc(diff)
-	metric_count.inc(1)
-
+		metric_time_max.setmax(diff)
+		metric_time.inc(diff)
+		metric_count.inc(1)
+	end
 end
 end
 end
