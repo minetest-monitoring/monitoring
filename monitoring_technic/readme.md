@@ -9,6 +9,9 @@ Base-mod: https://github.com/thomasrudin-mt/monitoring
 * **technic_switching_station_abm_time**
 * **technic_quarry_dig_count**
 
+# Settings
+
+* **monitoring.technic.verbose** more metrics
 
 # License
 
