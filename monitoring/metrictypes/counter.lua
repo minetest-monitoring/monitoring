@@ -36,7 +36,8 @@ monitoring.counter = function(name, help)
         local t0 = minetest.get_us_time()
 
         reentry_map[metric.name] = true
-        local result1, result2, result3 = f(...)
+				-- TODO: find out how to do this properly (pack, unpack)
+        local r1, r2, r3, r4, r5, r6 = f(...)
         reentry_map[metric.name] = nil
 
         local t1 = minetest.get_us_time()
@@ -44,7 +45,7 @@ monitoring.counter = function(name, help)
 
         metric.value = metric.value + diff
 
-        return result1, result2, result3
+        return r1, r2, r3, r4, r5, r6
       end
     end
   }
