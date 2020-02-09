@@ -39,7 +39,13 @@ if not monitoring.settings.builtin_disable then
   dofile(MP.."/builtin/cheat_count.lua")
   dofile(MP.."/builtin/craft_count.lua")
   dofile(MP.."/builtin/dig_count.lua")
-  dofile(MP.."/builtin/eat_count.lua")
+	dofile(MP.."/builtin/eat_count.lua")
+
+	if type(minetest.get_profiler_value) == "function" then
+		-- engine stats
+		dofile(MP.."/builtin/engine.lua")
+	end
+
   dofile(MP.."/builtin/forceload_blocks.lua")
   dofile(MP.."/builtin/generated.lua")
   dofile(MP.."/builtin/globalstep.lua")
