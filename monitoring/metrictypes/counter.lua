@@ -12,9 +12,14 @@ monitoring.counter = function(name, help)
   table.insert(monitoring.metrics, metric)
 
   return {
-    -- increment counter
+		-- increment counter
     inc = function(value)
       metric.value = metric.value + (value or 1)
+    end,
+
+		-- set counter manuall<
+    set = function(value)
+      metric.value = value
     end,
 
     -- wrap a function and increment counter on every call
