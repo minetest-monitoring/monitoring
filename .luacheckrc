@@ -8,6 +8,7 @@ globals = {
 	"digtron",
 	"DigtronLayout",
 	"pipeworks",
+	"digiline",
 	"mesecon",
 	"technic",
 	"replacer"

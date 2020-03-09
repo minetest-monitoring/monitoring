@@ -6,6 +6,9 @@ else
 end
 
 
+local MP = minetest.get_modpath("monitoring_digilines")
+
+dofile(MP.."/metric_controller.lua")
+
 
 monitoring.wrap_global({"digilines", "receptor_send"}, "digilines_receptor_send")
-
