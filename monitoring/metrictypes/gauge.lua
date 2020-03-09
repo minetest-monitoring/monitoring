@@ -7,6 +7,7 @@ monitoring.gauge = function(name, help, options)
     options = options or {}
   }
   table.insert(monitoring.metrics, metric)
+  monitoring.metrics_mapped[name] = metric
 
   return {
     set = function(value)

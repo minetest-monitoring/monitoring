@@ -10,6 +10,7 @@ monitoring.counter = function(name, help)
   }
 
   table.insert(monitoring.metrics, metric)
+  monitoring.metrics_mapped[name] = metric
 
   return {
 		-- increment counter

@@ -19,6 +19,7 @@ monitoring.histogram = function(name, help, buckets)
   }
 
   table.insert(monitoring.metrics, metric)
+  monitoring.metrics_mapped[name] = metric
 
   -- adds the value to the buckets
   local add_value = function(seconds)

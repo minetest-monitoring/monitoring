@@ -3,6 +3,7 @@ monitoring = {
   version_major = 1,
   version_minor = 5,
   metrics = {}, -- {name="", help="", type="", ...}
+  metrics_mapped = {}, -- metrics mapped by name as key
 	storage = minetest.get_mod_storage(),
   settings = {
     prom_push_url = minetest.settings:get("monitoring.prometheus_push_url"),
@@ -21,6 +22,7 @@ dofile(MP.."/metrictypes/gauge.lua")
 dofile(MP.."/metrictypes/counter.lua")
 dofile(MP.."/metrictypes/histogram.lua")
 
+dofile(MP.."/chatcommands.lua")
 dofile(MP.."/register.lua")
 dofile(MP.."/sampling.lua")
 
