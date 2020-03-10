@@ -12,6 +12,6 @@ minetest.register_chatcommand("metric", {
       return false, "No such metric: '" .. param .. "'"
     end
 
-    return true, metric.value or "<unknown>"
+    return true, "" .. metric.value or "<unknown>"
   end
 })
