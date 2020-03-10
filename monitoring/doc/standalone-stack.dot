@@ -1,0 +1,6 @@
+digraph {
+  monitoring_mod -> pushgateway [label=POST];
+  prometheus -> pushgateway [label=GET];
+  grafana -> prometheus [label=GET];
+  Browser -> grafana [labe=GET]
+}

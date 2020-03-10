@@ -1,6 +1,8 @@
 
 # Standlone monitoring server setup
 
+<img src="./standalone-stack.png"></img>
+
 ## Prometheus
 
 https://prometheus.io/download/
