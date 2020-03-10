@@ -7,12 +7,13 @@ Provides a [prometheus](https://prometheus.io) monitoring endpoint (via push-gat
 
 ## Documentation
 
-* [Custom metrics](monitoring/doc/custom.md).
-* [Exporters](monitoring/doc/exporters.md).
-* [Chat commands](monitoring/doc/chatcommands.md).
-* [Installation](monitoring/doc/install.md).
-* [Hosted](monitoring/doc/hosted.md).
-* [Docker](monitoring/doc/docker.md).
+* [Custom metrics](monitoring/doc/custom.md)
+* [Exporters](monitoring/doc/exporters.md)
+* [Chat commands](monitoring/doc/chatcommands.md)
+* [Installation of the mod](monitoring/doc/install.md)
+* [Hosted](monitoring/doc/hosted.md)
+* [Docker](monitoring/doc/docker.md)
+* [Installation of the tools (without docker)](monitoring/doc/standalone.md)
 
 ## Features
 
