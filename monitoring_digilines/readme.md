@@ -7,6 +7,7 @@ Monitoring, digilines component
 
 Usage:
 
+Reading:
 ```lua
 if event.type == "program" then
   -- query metric by its name
@@ -16,6 +17,17 @@ end
 if event.type == "digiline" and event.channel == "ctrl_channel" then
   print("Pipeworks entities: " .. event.msg)
 end
+```
+
+Writing:
+```lua
+digiline_send("channel", {
+	metric: "ingame_lua_tube_mese",
+	help: "my mese lua tube count"
+	counter: true,
+	increment: true,
+	value: 20
+})
 ```
 
 # License

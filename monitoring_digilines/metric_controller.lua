@@ -1,5 +1,4 @@
 
-
 minetest.register_node("monitoring_digilines:metric_controller", {
 	description = "Monitoring metric controller",
 	groups = {
@@ -55,15 +54,48 @@ minetest.register_node("monitoring_digilines:metric_controller", {
 		effector = {
 			action = function(pos, _, channel, msg)
 					local meta = minetest.get_meta(pos)
-					if meta:get_string("channel") ~= channel or type(msg) ~= "string" then
+					if meta:get_string("channel") ~= channel then
             return
           end
 
-          local value = monitoring.metrics_mapped[msg]
+					if type(msg) == "table" and msg.metric and msg.value and
+						type(msg.metric) == "string" and type(msg.value) == "number" then
+						-- set and/or create metric
 
-          if value then
-            digiline:receptor_send(pos, digiline.rules.default, channel, value)
-          end
+						local metric = monitoring.metrics_mapped[msg.metric]
+						if not metric then
+							-- create metric
+							if msg.counter then
+								metric = monitoring.counter(
+									msg.metric,
+									msg.help or "counter for " .. msg.metric
+								)
+							else
+								metric = monitoring.gauge(
+									msg.metric,
+									msg.help or "gauge for " .. msg.metric
+								)
+							end
+						end
+
+						if metric.type == "gauge" then
+							metric.set(msg.value)
+						elseif metric.type == "counter" then
+							if msg.increment then
+								metric.inc(msg.value)
+							else
+								metric.set(msg.value)
+							end
+						end
+					end
+
+					if type(msg) == "string" then
+						-- simple string to get metrics from
+	          local metric = monitoring.metrics_mapped[msg]
+	          if metric then
+	            digiline:receptor_send(pos, digiline.rules.default, channel, metric)
+	          end
+					end
 				end
 		}
 	}
