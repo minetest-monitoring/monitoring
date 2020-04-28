@@ -13,7 +13,7 @@ monitoring.pipeworks = {
 local MP = minetest.get_modpath("monitoring_pipeworks")
 
 dofile(MP.."/entity_count.lua")
-dofile(MP.."/filter_action.lua")
+dofile(MP.."/filter_action_on.lua")
 dofile(MP.."/globalsteps.lua")
 dofile(MP.."/metics.lua")
 dofile(MP.."/tube_inject_item.lua")
