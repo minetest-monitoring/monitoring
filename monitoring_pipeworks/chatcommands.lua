@@ -30,7 +30,7 @@ minetest.register_chatcommand("pipeworks_enable_visuals", {
         description = "enables the pipeworks visuals",
         privs = {server=true},
         func = function()
-          pipeworks.pipeworks.enable_visuals = true
+          monitoring.pipeworks.enable_visuals = true
           return true, "Visuals enabled"
         end
 })
@@ -39,7 +39,7 @@ minetest.register_chatcommand("pipeworks_disable_visuals", {
         description = "disables the pipeworks visuals",
         privs = {server=true},
         func = function()
-          pipeworks.pipeworks.enable_visuals = false
+          monitoring.pipeworks.enable_visuals = false
           return true, "Visuals disabled"
         end
 })
