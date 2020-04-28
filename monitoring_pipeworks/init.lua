@@ -5,6 +5,11 @@ else
         print("[monitoring] pipeworks extension loaded")
 end
 
+monitoring.pipeworks = {
+  -- enable tubed item visuals
+  enable_visuals = true
+}
+
 local MP = minetest.get_modpath("monitoring_pipeworks")
 
 dofile(MP.."/entity_count.lua")
