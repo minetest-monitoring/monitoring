@@ -26,6 +26,16 @@ local map_saving = monitoring.counter(
 	"map saving time sum in milliseconds"
 )
 
+local liquid_processing = monitoring.counter(
+	"engine_liquid_processing",
+	"liquid processing time sum in milliseconds"
+)
+
+local map_timer_and_unload = monitoring.counter(
+	"engine_map_timer_and_unload",
+	"map timer and unload time sum in milliseconds"
+)
+
 local timer = 0
 minetest.register_globalstep(function(dtime)
 	timer = timer + dtime
@@ -37,4 +47,6 @@ minetest.register_globalstep(function(dtime)
 	sendblocks_collect.set(minetest.get_profiler_value("Server::SendBlocks(): Collect list [ms]"))
 	network_processing.set(minetest.get_profiler_value("Server: Process network packet (sum) [ms]"))
 	map_saving.set(minetest.get_profiler_value("Server: map saving (sum) [ms]"))
+	liquid_processing.set(minetest.get_profiler_value("Server: liquid transform [ms]"))
+	map_timer_and_unload.set(minetest.get_profiler_value("Server: map timer and unload [ms]"))
 end)
