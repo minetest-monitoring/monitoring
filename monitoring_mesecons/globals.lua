@@ -6,9 +6,9 @@ local execute_calls_metric = monitoring.wrap_global({"mesecon", "queue", "execut
 if monitoring.settings.handle_errors then
   -- enable error handling in mesecons queue
   local old_execute = mesecon.queue.execute
-  mesecon.queue.execute = function(action)
+  mesecon.queue.execute = function(self, action)
     monitoring.protected_call(execute_calls_metric, function()
-      old_execute(action)
+      old_execute(self, action)
     end, action.pos)
   end
 end
