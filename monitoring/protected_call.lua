@@ -1,4 +1,5 @@
 
+monitoring.error_count_metric = monitoring.counter("error_count", "number of catched errors")
 
 function monitoring.protected_call(metric, fn, pos)
   if not monitoring.settings.handle_errors then
@@ -20,5 +21,6 @@ function monitoring.protected_call(metric, fn, pos)
     minetest.log("error", "[monitoring] catched error: " .. (message or "<unknown>"))
     metric.error = message
     metric.error_pos = pos
+    monitoring.error_count_metric.inc()
   end
 end

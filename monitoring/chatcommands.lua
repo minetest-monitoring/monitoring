@@ -63,6 +63,8 @@ minetest.register_chatcommand("reset_errors", {
       end
     end
 
+    monitoring.error_count_metric.set(0)
+
     return true, "Error state reset"
   end
 })
