@@ -22,11 +22,11 @@ end
 Writing:
 ```lua
 digiline_send("channel", {
-	metric: "ingame_lua_tube_mese",
-	help: "my mese lua tube count"
-	counter: true,
-	increment: true,
-	value: 20
+	metric = "ingame_lua_tube_mese",
+	help = "my mese lua tube count"
+	counter = true,
+	increment = true,
+	value = 20
 })
 ```
 
