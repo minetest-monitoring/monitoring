@@ -17,7 +17,7 @@ minetest.register_on_mods_loaded(function()
 
     local info = minetest.callback_origins[globalstep]
 
-    local new_callback = function(...)
+    local new_callback = function(dtime)
 
       if globalsteps_disabled[info.mod] then
         return
@@ -26,7 +26,9 @@ minetest.register_on_mods_loaded(function()
       metric.inc()
       local t0 = minetest.get_us_time()
 
-      globalstep(...)
+			monitoring.protected_call(metric, function()
+				globalstep(dtime)
+			end)
 
       local t1 = minetest.get_us_time()
       local diff = t1 - t0

@@ -40,44 +40,42 @@ monitoring.histogram = function(name, help, buckets)
     end
   end
 
-  return {
+  -- manual count
+  metric.observe = function(seconds)
+    add_value(seconds)
+  end
 
-    -- manual count
-    observe = function(seconds)
-      add_value(seconds)
-    end,
+  -- timer based count
+  metric.timer = function()
+    local t0 = minetest.get_us_time()
 
-    -- timer based count
-    timer = function()
-      local t0 = minetest.get_us_time()
-
-      return {
-        observe = function()
-          local t1 = minetest.get_us_time()
-          local us = t1 - t0
-          local seconds = us / 1000000
-
-          add_value(seconds)
-        end
-      }
-    end,
-
-    -- wrap a function
-    wrap = function(f)
-      return function(...)
-        local t0 = minetest.get_us_time()
-
-        local r1, r2, r3 = f(...)
-
+    return {
+      observe = function()
         local t1 = minetest.get_us_time()
         local us = t1 - t0
         local seconds = us / 1000000
 
         add_value(seconds)
-
-        return r1, r2, r3
       end
-    end
-  }
+    }
+  end
 
+  -- wrap a function
+  metric.wrap = function(f)
+    return function(...)
+      local t0 = minetest.get_us_time()
+
+      local r1, r2, r3 = f(...)
+
+      local t1 = minetest.get_us_time()
+      local us = t1 - t0
+      local seconds = us / 1000000
+
+      add_value(seconds)
+
+      return r1, r2, r3
+    end
+  end
+
+  return metric
 end

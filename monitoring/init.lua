@@ -11,7 +11,8 @@ monitoring = {
     builtin_disable = minetest.settings:get_bool("monitoring.builtin_disable"),
     csv_enable = minetest.settings:get_bool("monitoring.csv_enable"),
     json_enable = minetest.settings:get_bool("monitoring.json_enable"),
-    debug = minetest.settings:get_bool("monitoring.debug")
+    debug = minetest.settings:get_bool("monitoring.debug"),
+    handle_errors = minetest.settings:get_bool("monitoring.handle_errors")
   }
 }
 
@@ -22,6 +23,7 @@ dofile(MP.."/metrictypes/gauge.lua")
 dofile(MP.."/metrictypes/counter.lua")
 dofile(MP.."/metrictypes/histogram.lua")
 
+dofile(MP.."/protected_call.lua")
 dofile(MP.."/chatcommands.lua")
 dofile(MP.."/register.lua")
 dofile(MP.."/sampling.lua")
