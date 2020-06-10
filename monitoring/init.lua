@@ -1,7 +1,7 @@
 
 monitoring = {
   version_major = 1,
-  version_minor = 5,
+  version_minor = 6,
   metrics = {}, -- {name="", help="", type="", ...}
   metrics_mapped = {}, -- metrics mapped by name as key
 	storage = minetest.get_mod_storage(),
