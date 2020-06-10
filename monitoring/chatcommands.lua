@@ -30,9 +30,14 @@ minetest.register_chatcommand("get_errors", {
     local count = 0
 
     for _, metric in ipairs(monitoring.metrics) do
+      local pos_msg = ""
+      if metric.error_pos then
+        pos_msg = " at position " .. minetest.pos_to_string(metric.error_pos)
+      end
+
       if metric.error then
         count = count + 1
-        res = res .. metric.name .. ": " .. metric.error .. "\n"
+        res = res .. metric.name .. ": " .. metric.error .. pos_msg .. "\n"
       end
     end
 

@@ -1,6 +1,6 @@
 
 
-function monitoring.protected_call(metric, fn)
+function monitoring.protected_call(metric, fn, pos)
   if not monitoring.settings.handle_errors then
     -- don't handle anything here
     return fn()
@@ -19,5 +19,6 @@ function monitoring.protected_call(metric, fn)
     -- execution failed, mark as in error
     minetest.log("error", "[monitoring] catched error: " .. (message or "<unknown>"))
     metric.error = message
+    metric.error_pos = pos
   end
 end
