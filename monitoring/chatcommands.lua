@@ -17,7 +17,6 @@ minetest.register_chatcommand("metric", {
 })
 
 
--- TODO: reset error state
 
 minetest.register_chatcommand("get_errors", {
   description = "shows all catched errors",
@@ -46,5 +45,24 @@ minetest.register_chatcommand("get_errors", {
     else
       return true, "No errors to report"
     end
+  end
+})
+
+
+minetest.register_chatcommand("reset_errors", {
+  description = "resets all catched errors",
+  privs = { server = true },
+  func = function()
+    if not monitoring.settings.handle_errors then
+      return false, "Error-handling not enabled!"
+    end
+
+    for _, metric in ipairs(monitoring.metrics) do
+      if metric.error then
+        metric.error = false
+      end
+    end
+
+    return true, "Error state reset"
   end
 })
