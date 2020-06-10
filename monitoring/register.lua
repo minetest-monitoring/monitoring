@@ -24,4 +24,6 @@ monitoring.wrap_global = function(path, prefix)
 	local wrapped_count = metric_calls.wrap(wrapped_time)
 
 	obj[field] = wrapped_count
+
+	return metric_calls
 end

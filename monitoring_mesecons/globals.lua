@@ -1,7 +1,17 @@
 
 
 monitoring.wrap_global({"mesecon", "queue", "add_action"}, "mesecons_queue_action_add")
-monitoring.wrap_global({"mesecon", "queue", "execute"}, "mesecons_queue_execute")
+local execute_calls_metric = monitoring.wrap_global({"mesecon", "queue", "execute"}, "mesecons_queue_execute")
+
+if monitoring.settings.handle_errors then
+  -- enable error handling in mesecons queue
+  local old_execute = mesecon.queue.execute
+  mesecon.queue.execute = function(action)
+    monitoring.protected_call(execute_calls_metric, function()
+      old_execute(action)
+    end, action.pos)
+  end
+end
 
 if minetest.settings:get_bool("monitoring.mesecons.verbose") then
 
