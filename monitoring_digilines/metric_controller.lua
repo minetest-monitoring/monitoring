@@ -79,12 +79,12 @@ minetest.register_node("monitoring_digilines:metric_controller", {
 						end
 
 						if metric.type == "gauge" then
-							metric.set(msg.value)
+							metric.value = msg.value
 						elseif metric.type == "counter" then
 							if msg.increment then
-								metric.inc(msg.value)
+								metric.value = metric.value + msg.value
 							else
-								metric.set(msg.value)
+								metric.value = msg.value
 							end
 						end
 					end
