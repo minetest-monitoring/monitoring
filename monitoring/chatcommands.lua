@@ -51,7 +51,6 @@ minetest.register_chatcommand("get_errors", {
 
 minetest.register_chatcommand("reset_errors", {
   description = "resets all catched errors",
-  privs = { server = true },
   func = function()
     if not monitoring.settings.handle_errors then
       return false, "Error-handling not enabled!"
