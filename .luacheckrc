@@ -2,16 +2,7 @@ allow_defined_top = true
 
 globals = {
 	"monitoring",
-	"luaentity",
-	"minetest",
-	"advtrains",
-	"digtron",
-	"DigtronLayout",
-	"pipeworks",
-	"digiline",
-	"mesecon",
-	"technic",
-	"replacer"
+	"minetest"
 }
 
 read_globals = {

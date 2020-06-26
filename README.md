@@ -7,13 +7,13 @@ Provides a [prometheus](https://prometheus.io) monitoring endpoint (via push-gat
 
 ## Documentation
 
-* [Custom metrics](monitoring/doc/custom.md)
-* [Exporters](monitoring/doc/exporters.md)
-* [Chat commands](monitoring/doc/chatcommands.md)
-* [Installation of the mod](monitoring/doc/install.md)
-* [Hosted](monitoring/doc/hosted.md)
-* [Docker](monitoring/doc/docker.md)
-* [Installation of the tools (without docker)](monitoring/doc/standalone.md)
+* [Custom metrics](./doc/custom.md)
+* [Exporters](./doc/exporters.md)
+* [Chat commands](./doc/chatcommands.md)
+* [Installation of the mod](./doc/install.md)
+* [Hosted](./doc/hosted.md)
+* [Docker](./doc/docker.md)
+* [Installation of the tools (without docker)](./doc/standalone.md)
 
 ## Features
 
@@ -30,9 +30,9 @@ Provides a [prometheus](https://prometheus.io) monitoring endpoint (via push-gat
 
 ## Screenshots
 
-![](monitoring/pics/lag.png?raw=true)
+![](./pics/lag.png?raw=true)
 
-![](monitoring/pics/craft.png?raw=true)
+![](./pics/craft.png?raw=true)
 
 ## License
 
