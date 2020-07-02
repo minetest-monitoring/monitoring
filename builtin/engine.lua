@@ -1,37 +1,40 @@
 -- engine stats
 -- needs patch: https://github.com/pandorabox-io/minetest_docker/blob/master/patches/lua_profiler.patch
 
-local async_run_step = monitoring.gauge(
+-- <engine-metric-name> -> metric
+local engine_metrics = {}
+
+engine_metrics["Server::AsyncRunStep() [ms]"] = monitoring.gauge(
 	"engine_async_run_step",
 	"async run step time average in milliseconds"
 )
 
-local sendblocks = monitoring.counter(
+engine_metrics["Server::SendBlocks(): Send to clients [ms]"] = monitoring.counter(
 	"engine_sendblocks",
 	"sendblocks time sum in milliseconds"
 )
 
-local sendblocks_collect = monitoring.counter(
+engine_metrics["Server::SendBlocks(): Collect list [ms]"] = monitoring.counter(
 	"engine_sendblocks_collect",
 	"sendblocks collect time sum in milliseconds"
 )
 
-local network_processing = monitoring.counter(
+engine_metrics["Server: Process network packet (sum) [ms]"] = monitoring.counter(
 	"engine_network_processing",
 	"sendblocks time sum in milliseconds"
 )
 
-local map_saving = monitoring.counter(
+engine_metrics["Server: map saving (sum) [ms]"] = monitoring.counter(
 	"engine_map_saving",
 	"map saving time sum in milliseconds"
 )
 
-local liquid_processing = monitoring.counter(
+engine_metrics["Server: liquid transform [ms]"] = monitoring.counter(
 	"engine_liquid_processing",
 	"liquid processing time sum in milliseconds"
 )
 
-local map_timer_and_unload = monitoring.counter(
+engine_metrics["Server: map timer and unload [ms]"] = monitoring.counter(
 	"engine_map_timer_and_unload",
 	"map timer and unload time sum in milliseconds"
 )
@@ -42,11 +45,12 @@ minetest.register_globalstep(function(dtime)
 	if timer < 1 then return end
 	timer=0
 
-	async_run_step.set(minetest.get_profiler_value("Server::AsyncRunStep() [ms]"))
-	sendblocks.set(minetest.get_profiler_value("Server::SendBlocks(): Send to clients [ms]"))
-	sendblocks_collect.set(minetest.get_profiler_value("Server::SendBlocks(): Collect list [ms]"))
-	network_processing.set(minetest.get_profiler_value("Server: Process network packet (sum) [ms]"))
-	map_saving.set(minetest.get_profiler_value("Server: map saving (sum) [ms]"))
-	liquid_processing.set(minetest.get_profiler_value("Server: liquid transform [ms]"))
-	map_timer_and_unload.set(minetest.get_profiler_value("Server: map timer and unload [ms]"))
+	-- read from engine metrics and apply in lua space
+	for engine_key, metric in pairs(engine_metrics) do
+		local value = minetest.get_profiler_value(engine_key)
+		if value then
+			metric.set(value)
+		end
+	end
+
 end)
