@@ -39,6 +39,47 @@ engine_metrics["Server: map timer and unload [ms]"] = monitoring.counter(
 	"map timer and unload time sum in milliseconds"
 )
 
+-- abm metrics
+
+engine_metrics["ServerEnv: active blocks"] = monitoring.gauge(
+	"engine_active_blocks",
+	"active blocks"
+)
+
+engine_metrics["ServerEnv: active blocks cached"] = monitoring.gauge(
+	"engine_active_blocks_cached",
+	"cached active blocks"
+)
+
+engine_metrics["ServerEnv: active blocks scanned for ABMs"] = monitoring.gauge(
+	"engine_active_blocks_scanned",
+	"scanned active blocks"
+)
+
+engine_metrics["ServerEnv: ABMs run"] = monitoring.gauge(
+	"engine_abms_run",
+	"run active blocks"
+)
+
+engine_metrics["SEnv: modify in blocks avg per interval"] = monitoring.gauge(
+	"engine_abms_step_avg",
+	"active blocks step average"
+)
+
+-- node timers
+
+engine_metrics["ServerEnv: Run node timers"] = monitoring.gauge(
+	"engine_nodetimers_step_avg",
+	"nodetimers step average"
+)
+
+-- active objects
+
+engine_metrics["ServerEnv: Run SAO::step()"] = monitoring.gauge(
+	"engine_sao_step_avg",
+	"server active objects step average"
+)
+
 local timer = 0
 minetest.register_globalstep(function(dtime)
 	timer = timer + dtime
