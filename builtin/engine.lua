@@ -61,7 +61,7 @@ engine_metrics["ServerEnv: ABMs run"] = monitoring.gauge(
 	"run active blocks"
 )
 
-engine_metrics["SEnv: modify in blocks avg per interval"] = monitoring.gauge(
+engine_metrics["SEnv: modify in blocks avg per interval [ms]"] = monitoring.gauge(
 	"engine_abms_step_avg",
 	"active blocks step average"
 )
@@ -75,7 +75,7 @@ engine_metrics["ServerEnv: Run node timers"] = monitoring.gauge(
 
 -- active objects
 
-engine_metrics["ServerEnv: Run SAO::step()"] = monitoring.gauge(
+engine_metrics["ServerEnv: Run SAO::step() [ms]"] = monitoring.gauge(
 	"engine_sao_step_avg",
 	"server active objects step average"
 )
