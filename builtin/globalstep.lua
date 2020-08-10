@@ -16,7 +16,6 @@ minetest.register_on_mods_loaded(function()
   for i, globalstep in ipairs(minetest.registered_globalsteps) do
 
     local info = minetest.callback_origins[globalstep]
-		local error_state = {}
 
     local new_callback = function(dtime)
 
@@ -26,11 +25,7 @@ minetest.register_on_mods_loaded(function()
 
       metric.inc()
       local t0 = minetest.get_us_time()
-
-			monitoring.protected_call(error_state, function()
-				globalstep(dtime)
-			end)
-
+			globalstep(dtime)
       local t1 = minetest.get_us_time()
       local diff = t1 - t0
       metric_time.inc(diff)

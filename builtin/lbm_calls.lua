@@ -21,9 +21,7 @@ minetest.register_on_mods_loaded(function()
 
       metric.inc()
       local t0 = minetest.get_us_time()
-      monitoring.protected_call(metric, function()
-        old_action(pos, node)
-      end, pos)
+      old_action(pos, node)
       local t1 = minetest.get_us_time()
       local diff = t1 - t0
       metric_time.inc(diff)
