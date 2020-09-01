@@ -15,3 +15,31 @@ minetest.register_chatcommand("metric", {
     return true, "" .. metric.value or "<unknown>"
   end
 })
+
+-- lag simulation
+
+local lag = 0
+
+minetest.register_chatcommand("lag", {
+  privs = { server = true },
+  description = "simulate server lag",
+  params = "<seconds>",
+  func = function(_, param)
+    lag = tonumber(param or "0") or 0
+    return true, "lag = " .. lag .. " s"
+  end
+})
+
+minetest.register_globalstep(function()
+  if lag < 0.01 then
+    -- ignore value
+    return
+  end
+
+  local start = minetest.get_us_time()
+  local stop = start + (lag * 1000 * 1000)
+
+  while minetest.get_us_time() < stop do
+    -- no-op
+  end
+end)
