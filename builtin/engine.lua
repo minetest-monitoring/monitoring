@@ -66,6 +66,16 @@ engine_metrics["SEnv: modify in blocks avg per interval [ms]"] = monitoring.gaug
 	"active blocks step average"
 )
 
+engine_metrics["engine_network_receive_count"] = monitoring.counter(
+	"engine_network_receive_count",
+	"engine_network_receive_count"
+)
+
+engine_metrics["engine_network_receive_time"] = monitoring.counter(
+	"engine_network_receive_time",
+	"engine_network_receive_time"
+)
+
 -- node timers
 
 engine_metrics["ServerEnv: Run node timers"] = monitoring.gauge(
