@@ -1,0 +1,11 @@
+version: "2"
+
+services:
+ minetest:
+  image: registry.gitlab.com/minetest/minetest/server:5.3.0
+  ports:
+   - "30000:30000/udp"
+  user: root
+  volumes:
+   - "./minetest.conf:/etc/minetest/minetest.conf"
+   - "../:/root/.minetest/worlds/world/worldmods/monitoring"
