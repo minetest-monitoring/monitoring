@@ -90,6 +90,11 @@ engine_metrics["ServerEnv: Run SAO::step() [ms]"] = monitoring.gauge(
 	"server active objects step average"
 )
 
+engine_metrics["ActiveObjectMgr: SAO count [#]"] = monitoring.gauge(
+	"engine_sao_count",
+	"server active objects count average"
+)
+
 local timer = 0
 minetest.register_globalstep(function(dtime)
 	timer = timer + dtime
