@@ -61,6 +61,8 @@ if not monitoring.settings.builtin_disable then
   dofile(MP.."/builtin/player_jitter.lua")
   dofile(MP.."/builtin/player_rtt.lua")
   dofile(MP.."/builtin/nodetimer_calls.lua")
+  dofile(MP.."/builtin/on_joinplayer.lua")
+  dofile(MP.."/builtin/on_prejoinplayer.lua")
   dofile(MP.."/builtin/playercount.lua")
   dofile(MP.."/builtin/protection_violation_count.lua")
   dofile(MP.."/builtin/punchplayer.lua")
