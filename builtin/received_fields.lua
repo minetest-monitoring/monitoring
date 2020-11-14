@@ -19,12 +19,13 @@ minetest.register_on_mods_loaded(function()
 
 		minetest.registered_on_player_receive_fields[i] = function(...)
 			local t0 = minetest.get_us_time()
-			fn(...)
+			local result = fn(...)
 			local t1 = minetest.get_us_time()
 
 			local diff = t1 - t0
       metric_time.inc(diff)
       metric_time_max.setmax(diff)
+			return result
 		end
 
   end
