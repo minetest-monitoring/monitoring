@@ -1,0 +1,1 @@
+monitoring.prometheus_push_url (monitoring push url) string
