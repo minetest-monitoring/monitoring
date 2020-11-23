@@ -7,6 +7,10 @@ local metric_time_max = monitoring.gauge(
 	{ autoflush=true }
 )
 
+-- per mod/globalstep time table
+-- mod-name[n] => time in microseconds
+local time_table = {}
+
 -- modname -> bool
 local globalsteps_disabled = {}
 
@@ -30,6 +34,12 @@ minetest.register_on_mods_loaded(function()
       local diff = t1 - t0
       metric_time.inc(diff)
       metric_time_max.setmax(diff)
+
+			-- increment globalstep time table entry
+			local entr_key = "globalstep_" .. i .. "_" .. (info.mod or "<unknown>")
+			local tt_entry = time_table[entr_key] or 0
+			tt_entry = tt_entry + diff
+			time_table[entr_key] = tt_entry
 
       if diff > 75000 then
         minetest.log("warning", "[monitoring] globalstep took " .. diff .. " us in mod " .. (info.mod or "<unknown>"))
@@ -96,5 +106,26 @@ minetest.register_chatcommand("globalstep_status", {
     end
 
     return true, list
+	end
+})
+
+-- time table commands
+
+minetest.register_chatcommand("globalstep_table_reset", {
+	description = "resets the globalstep time table",
+	func = function()
+		time_table = {}
+		return true, "time table reset"
+	end
+})
+
+minetest.register_chatcommand("globalstep_table_show", {
+	description = "shows the globalstep time table",
+	func = function()
+		local str = ""
+		for modname, micros in pairs(time_table) do
+			str = str .. "+ " .. modname .. " = " .. micros .. " us\n"
+		end
+		return true, str
 	end
 })

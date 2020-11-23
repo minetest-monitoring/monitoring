@@ -51,3 +51,11 @@ Use with care!
 ## /globalstep_status
 
 * shows all disabled globalsteps
+
+## /globalstep_table_reset
+
+* Resets the globalstep time tracking table
+
+## /globalstep_table_show
+
+* Shows the globalstep time tracking table
