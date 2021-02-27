@@ -45,6 +45,6 @@ minetest.register_globalstep(function(dtime)
 
 	metric_max.set(jitter_max)
 	metric_min.set(jitter_min)
-	metric_avg.set(avg_sum / avg_count)
+	metric_avg.set(avg_count > 0 and (avg_sum / avg_count) or 0)
 
 end)
