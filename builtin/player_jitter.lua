@@ -27,7 +27,7 @@ minetest.register_globalstep(function(dtime)
 	for _, player in ipairs(minetest.get_connected_players()) do
 		local info = minetest.get_player_information(player:get_player_name())
 
-		if info then
+		if info and info.min_jitter and info.max_jitter and info.avg_jitter then
 
 			if info.min_jitter < jitter_min then
 				jitter_min = info.min_jitter
