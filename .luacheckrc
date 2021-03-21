@@ -15,5 +15,5 @@ read_globals = {
 	"dump",
 
 	-- optional dependencies
-	"qos"
+	"QoS"
 }
