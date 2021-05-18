@@ -49,7 +49,7 @@ if not monitoring.settings.builtin_disable then
 	end
 
   dofile(MP.."/builtin/forceload_blocks.lua")
-  dofile(MP.."/builtin/after.lua")
+  --dofile(MP.."/builtin/after.lua")
   dofile(MP.."/builtin/generated.lua")
   dofile(MP.."/builtin/globalstep.lua")
   dofile(MP.."/builtin/jit.lua")
