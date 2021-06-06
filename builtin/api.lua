@@ -4,6 +4,8 @@ monitoring.wrap_global({"minetest", "find_node_near"}, "find_node_near")
 monitoring.wrap_global({"minetest", "get_objects_inside_radius"}, "get_objects_inside_radius")
 monitoring.wrap_global({"minetest", "check_player_privs"}, "check_player_privs")
 monitoring.wrap_global({"minetest", "get_craft_result"}, "get_craft_result")
+monitoring.wrap_global({"minetest", "get_craft_recipe"}, "get_craft_recipe")
+monitoring.wrap_global({"minetest", "get_all_craft_recipes"}, "get_all_craft_recipes")
 
 -- call intensive functions, only enable if explicitly set
 if minetest.settings:get_bool("monitoring.verbose") then
