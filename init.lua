@@ -16,6 +16,7 @@ monitoring = {
 }
 
 local http = minetest.get_modpath("qos") and QoS and QoS(minetest.request_http_api(), 2) or minetest.request_http_api()
+local MP = minetest.get_modpath("monitoring")
 
 dofile(MP.."/metrictypes/gauge.lua")
 dofile(MP.."/metrictypes/counter.lua")
