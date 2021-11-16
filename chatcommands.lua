@@ -43,3 +43,30 @@ minetest.register_globalstep(function()
     -- no-op
   end
 end)
+
+minetest.register_chatcommand("forceload", {
+  privs = { server = true },
+  description = "checks or sets the forceload property of the current mapblock",
+  params = "[<on|off>]",
+  func = function(name, param)
+    local player = minetest.get_player_by_name(name)
+    if not player then
+      return false, "Player '" .. name .. "' not found"
+    end
+
+    local ppos = player:get_pos()
+    if param == "on" then
+      -- enable
+      minetest.forceload_block(ppos, false)
+      return true, "Enabled forceloading in current mapblock"
+    elseif param == "off" then
+      -- disable
+      minetest.forceload_free_block(ppos, false)
+      return true, "Disabled forceloading in current mapblock"
+    else
+      -- check
+      local fl = monitoring.is_forceloaded(ppos)
+      return true, "Current mapblock is " .. (fl and "" or "not ") .. "forceloaded"
+    end
+  end
+})
