@@ -16,7 +16,11 @@ local function explode(sep, input)
         return t
 end
 local function get_max_lag()
-        local arrayoutput = explode(", ",minetest.get_server_status())
+	local status = minetest.get_server_status()
+	if not status then
+		return 0
+	end
+        local arrayoutput = explode(", ",status)
         local arrayoutput2 = explode("=",arrayoutput[4])
         return arrayoutput2[1]
 end
