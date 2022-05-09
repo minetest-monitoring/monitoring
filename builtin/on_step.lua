@@ -1,3 +1,4 @@
+local get_us_time = minetest.get_us_time
 local metric = monitoring.counter("entity_on_step_count", "Entity on_step call count")
 
 local metric_time = monitoring.counter("entity_on_step_time", "time usage in microseconds for on_step calls")
@@ -13,13 +14,13 @@ minetest.register_on_mods_loaded(function()
 		if type(entity.on_step) == "function" then
 			local old_on_step = entity.on_step
 			entity.on_step = function(...)
-				local t0 = minetest.get_us_time()
+				local t0 = get_us_time()
 				local result = old_on_step(...)
-				local t1 = minetest.get_us_time()
+				local t1 = get_us_time()
 
 				local diff = t1 - t0
-	      metric_time.inc(diff)
-	      metric_time_max.setmax(diff)
+				metric_time.inc(diff)
+				metric_time_max.setmax(diff)
 				metric.inc()
 
 				return result

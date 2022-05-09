@@ -7,5 +7,5 @@ minetest.register_globalstep(function(dtime)
 	if timer < 5 then return end
 	timer=0
 
-  metric.set( #minetest.get_connected_players() )
+	metric.set( #minetest.get_connected_players() )
 end)

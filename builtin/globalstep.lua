@@ -1,3 +1,4 @@
+local get_us_time = minetest.get_us_time
 local metric_callbacks = monitoring.gauge("globalstep_callback_count", "number of globalstep callbacks")
 local metric = monitoring.counter("globalstep_count", "number of globalstep calls")
 local metric_time = monitoring.counter("globalstep_time", "time usage in microseconds for globalstep calls")
@@ -28,9 +29,9 @@ minetest.register_on_mods_loaded(function()
       end
 
       metric.inc()
-      local t0 = minetest.get_us_time()
+      local t0 = get_us_time()
 			globalstep(dtime)
-      local t1 = minetest.get_us_time()
+      local t1 = get_us_time()
       local diff = t1 - t0
       metric_time.inc(diff)
       metric_time_max.setmax(diff)

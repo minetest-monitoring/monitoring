@@ -1,3 +1,4 @@
+local get_us_time = minetest.get_us_time
 local max_metric = monitoring.gauge("max_lag", "max lag in seconds", { autoflush=true })
 local min_metric = monitoring.gauge("min_lag", "min lag in seconds", { autoflush=true })
 local avg_metric = monitoring.gauge("avg_lag", "avg lag in seconds")
@@ -7,30 +8,30 @@ local lag_histogram = monitoring.histogram("lag", "lag histogram",
 
 
 local function explode(sep, input)
-        local t={}
-        local i=0
-        for k in string.gmatch(input,"([^"..sep.."]+)") do
-            t[i]=k
-            i=i+1
-        end
-        return t
+		local t={}
+		local i=0
+		for k in string.gmatch(input,"([^"..sep.."]+)") do
+			t[i]=k
+			i=i+1
+		end
+		return t
 end
 local function get_max_lag()
 	local status = minetest.get_server_status()
 	if not status then
 		return 0
 	end
-        local arrayoutput = explode(", ",status)
-        local arrayoutput2 = explode("=",arrayoutput[4])
-        return arrayoutput2[1]
+		local arrayoutput = explode(", ",status)
+		local arrayoutput2 = explode("=",arrayoutput[4])
+		return arrayoutput2[1]
 end
 
 local timer = 0
-local last_call_t = minetest.get_us_time()
+local last_call_t = get_us_time()
 
 minetest.register_globalstep(function()
 	-- calculate own delta-time
-	local now = minetest.get_us_time()
+	local now = get_us_time()
 	local deltat = (now - last_call_t) / 1000000
 
 	-- swap timestamps

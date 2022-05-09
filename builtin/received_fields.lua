@@ -1,3 +1,4 @@
+local get_us_time = minetest.get_us_time
 local metric = monitoring.counter("received_fields", "received client fields count")
 
 minetest.register_on_player_receive_fields(function()
@@ -17,9 +18,9 @@ local metric_time_max = monitoring.gauge(
 minetest.register_on_mods_loaded(function()
 	for i, fn in ipairs(minetest.registered_on_player_receive_fields) do
 		minetest.registered_on_player_receive_fields[i] = function(...)
-			local t0 = minetest.get_us_time()
+			local t0 = get_us_time()
 			local result = fn(...)
-			local t1 = minetest.get_us_time()
+			local t1 = get_us_time()
 
 			local diff = t1 - t0
 			metric_time.inc(diff)

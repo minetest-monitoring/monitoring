@@ -1,3 +1,4 @@
+local get_us_time = minetest.get_us_time
 local metric = monitoring.counter("nodetimer_count", "number of nodetime calls")
 local metric_time = monitoring.counter("nodetimer_time", "time usage in microseconds for nodetimer calls")
 
@@ -22,9 +23,9 @@ minetest.register_on_mods_loaded(function()
         end
 
         metric.inc()
-        local t0 = minetest.get_us_time()
+        local t0 = get_us_time()
         local result = old_action(pos, elapsed)
-        local t1 = minetest.get_us_time()
+        local t1 = get_us_time()
         local diff = t1 - t0
 
         metric_time.inc(diff)

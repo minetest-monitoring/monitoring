@@ -1,4 +1,5 @@
 -- generated blocks (80x80)
+local get_us_time = minetest.get_us_time
 
 local metric = monitoring.counter("mapgen_generated_count", "Generated mapgen count")
 
@@ -15,17 +16,15 @@ minetest.register_on_generated(function()
 end)
 
 minetest.register_on_mods_loaded(function()
-  for i, on_generated in ipairs(minetest.registered_on_generateds) do
-
+	for i, on_generated in ipairs(minetest.registered_on_generateds) do
 		minetest.registered_on_generateds[i] = function(...)
-			local t0 = minetest.get_us_time()
+			local t0 = get_us_time()
 			on_generated(...)
-			local t1 = minetest.get_us_time()
+			local t1 = get_us_time()
 
 			local diff = t1 - t0
-      metric_time.inc(diff)
-      metric_time_max.setmax(diff)
+			metric_time.inc(diff)
+			metric_time_max.setmax(diff)
 		end
-
-  end
+	end
 end)
