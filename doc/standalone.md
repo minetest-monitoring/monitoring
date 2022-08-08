@@ -2,7 +2,7 @@
 # Standalone monitoring server setup
 
 Quick instructions to get the monitoring stack running locally (without docker).
-For a (proper) docker setup see the `docker-compose.yml` file at https://github.com/minetest-monitoring/monitoring.minetest.land
+For a (proper) docker setup see the `docker-compose.yml` file at https://github.com/minetest-monitoring/monitoring.minetest.ch
 
 The monitoring stack:
 <img src="./standalone-stack.png"></img>
@@ -62,7 +62,7 @@ Start grafana:
 
 ### Import dashboards
 
-Export a dashboard from https://monitoring.minetest.land or download the [overview](./dashboard-overview.json) dashboard.
+Export a dashboard from https://monitoring.minetest.ch or download the [overview](./dashboard-overview.json) dashboard.
 
 * Click the "+" Sign on the left
 * Choose "Import"

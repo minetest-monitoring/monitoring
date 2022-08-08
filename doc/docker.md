@@ -47,9 +47,9 @@ services:
    - "./data/nginx/routes:/routes"
   environment:
    VIRTUAL_PORT: 80
-   VIRTUAL_HOST: monitoring.minetest.land
+   VIRTUAL_HOST: monitoring.minetest.ch
    LETSENCRYPT_EMAIL: thomas@rudin.io
-   LETSENCRYPT_HOST: monitoring.minetest.land
+   LETSENCRYPT_HOST: monitoring.minetest.ch
   depends_on:
    - grafana
    - pushgateway

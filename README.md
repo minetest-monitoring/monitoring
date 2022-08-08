@@ -3,7 +3,7 @@ Provides a [prometheus](https://prometheus.io) monitoring endpoint (via push-gat
 
 ## Demo
 
-* [monitoring.minetest.land](https://monitoring.minetest.land/d/YUpouLmWk/lua-server-monitoring-mod?tab=visualization&orgId=1&refresh=5s&var-instance=pandorabox.io)
+* [monitoring.minetest.ch](https://monitoring.minetest.ch/d/YUpouLmWk/lua-server-monitoring-mod?tab=visualization&orgId=1&refresh=5s&var-instance=pandorabox.io)
 
 ## Documentation
 
