@@ -40,7 +40,7 @@ monitoring.counter = function(name, help)
 
 			reentry_map[metric.name] = true
 			-- TODO: find out how to do this properly (pack, unpack)
-			local r1, r2, r3, r4, r5, r6 = f(...)
+			local results = {f(...)}
 			reentry_map[metric.name] = nil
 
 			local t1 = get_us_time()
@@ -48,7 +48,7 @@ monitoring.counter = function(name, help)
 
 			metric.value = metric.value + diff
 
-			return r1, r2, r3, r4, r5, r6
+			return unpack(results)
 		end
 	end
 

@@ -135,4 +135,5 @@ end
 if minetest.get_modpath("mtt") and mtt.enabled then
   -- test utils
   dofile(MP .. "/init.spec.lua")
+  dofile(MP.."/metrictypes/counter.spec.lua")
 end
