@@ -39,7 +39,6 @@ monitoring.counter = function(name, help)
 			local t0 = get_us_time()
 
 			reentry_map[metric.name] = true
-			-- TODO: find out how to do this properly (pack, unpack)
 			local results = {f(...)}
 			reentry_map[metric.name] = nil
 

@@ -75,6 +75,7 @@ if not monitoring.settings.builtin_disable then
 end
 
 if minetest.get_modpath("technic") then
+  print("[monitoring] enabling technic integrations")
   dofile(MP.."/mods/technic/abm.lua")
   dofile(MP.."/mods/technic/quarry.lua")
   dofile(MP.."/mods/technic/switch.lua")
@@ -82,15 +83,18 @@ if minetest.get_modpath("technic") then
 end
 
 if minetest.get_modpath("basic_machines") then
+  print("[monitoring] enabling basic_machines integrations")
   dofile(MP.."/mods/basic_machines/init.lua")
 end
 
 if minetest.get_modpath("digilines") then
+  print("[monitoring] enabling digilines integrations")
   dofile(MP.."/mods/digilines/init.lua")
   dofile(MP.."/mods/digilines/metric_controller.lua")
 end
 
 if minetest.get_modpath("mesecons") then
+  print("[monitoring] enabling mesecons integrations")
   dofile(MP.."/mods/mesecons/action_on.lua")
   dofile(MP.."/mods/mesecons/functions.lua")
   dofile(MP.."/mods/mesecons/globals.lua")
@@ -99,6 +103,7 @@ if minetest.get_modpath("mesecons") then
 end
 
 if minetest.get_modpath("pipeworks") then
+  print("[monitoring] enabling pipeworks integrations")
   dofile(MP.."/mods/pipeworks/init.lua")
   dofile(MP.."/mods/pipeworks/entity_count.lua")
   dofile(MP.."/mods/pipeworks/expiration.lua")
@@ -134,6 +139,6 @@ end
 
 if minetest.get_modpath("mtt") and mtt.enabled then
   -- test utils
-  dofile(MP .. "/init.spec.lua")
+  dofile(MP.."/init.spec.lua")
   dofile(MP.."/metrictypes/counter.spec.lua")
 end
