@@ -2,12 +2,13 @@
 local get_us_time = minetest.get_us_time
 local reentry_map = {}
 
-monitoring.counter = function(name, help)
+monitoring.counter = function(name, help, options)
 	local metric = {
 		name = name,
 		help = help,
 		type = "counter",
-		value = 0
+		value = 0,
+		options = options or {}
 	}
 
 	-- increment counter

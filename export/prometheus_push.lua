@@ -16,61 +16,73 @@ local export_size = monitoring.counter(
 	"byte count of the prometheus export"
 )
 
-local push_metrics = function()
+function monitoring.serialize_prometheus_labels(labels)
+	local str = ""
+	local i = 0
+	for k,v in pairs(labels or {}) do
+		str = str .. k .. "=\"" .. v .. "\","
+		i = i + 1
+	end
 
+	if i > 0 then
+		return "{" .. string.sub(str, 1, #str-1) .. "}"
+	else
+		return ""
+	end
+end
+
+function monitoring.serialize_prometheus_metric(metric)
+	local data = ""
+	if metric.value or metric.value == 0 then
+		data = data .. "# TYPE " .. metric.name .. " " .. metric.type .. "\n"
+		data = data .. "# HELP " .. metric.name .. " " .. metric.help .. "\n"
+
+		if metric.value ~= nil then
+		if metric.type == "gauge" or metric.type == "counter" then
+			data = data .. metric.name
+			if metric.options and metric.options.labels then
+				-- append labels
+				data = data .. monitoring.serialize_prometheus_labels(metric.options.labels)
+			end
+			data = data  .. " " .. metric.value .. "\n"
+
+			if metric.options and metric.options.autoflush then
+				-- reset metric value on export
+				metric.value = nil
+			end
+		end
+		end
+
+		if metric.type == "histogram" then
+			for k, bucket in ipairs(metric.buckets) do
+				data = data .. metric.name .. "_bucket{le=\"" .. bucket  .. "\"} " .. metric.bucketvalues[k] .. "\n"
+			end
+			data = data .. metric.name .. "_bucket{le=\"+Inf\"} " .. metric.infcount .. "\n"
+			data = data .. metric.name .. "_sum " .. metric.sum .. "\n"
+			data = data .. metric.name .. "_count " .. metric.count .. "\n"
+		end
+	end
+	return data
+end
+
+local function push_metrics()
 	local t0 = minetest.get_us_time()
 
 	local data = ""
-
 	for _, metric in ipairs(monitoring.metrics) do
-		if metric.value or metric.value == 0 then
-
-		 data = data .. "# TYPE " .. metric.name .. " " .. metric.type .. "\n"
-		 data = data .. "# HELP " .. metric.name .. " " .. metric.help .. "\n"
-
-		 if metric.value ~= nil then
-			 if metric.type == "gauge" or metric.type == "counter" then
-				 data = data .. metric.name .. " " .. metric.value .. "\n"
-
-				if metric.options and metric.options.autoflush then
-				 -- reset metric value on export
-				 metric.value = nil
-				end
-			 end
-		 end
-
-		 if metric.type == "histogram" then
-			 for k, bucket in ipairs(metric.buckets) do
-				 data = data .. metric.name .. "_bucket{le=\"" .. bucket  .. "\"} " .. metric.bucketvalues[k] .. "\n"
-			 end
-			 data = data .. metric.name .. "_bucket{le=\"+Inf\"} " .. metric.infcount .. "\n"
-			 data = data .. metric.name .. "_sum " .. metric.sum .. "\n"
-			 data = data .. metric.name .. "_count " .. metric.count .. "\n"
-		 end
-
-		end
-
+		data = data .. monitoring.serialize_prometheus_metric(metric)
 	end
 
 	local t_collect_us = get_us_time() - t0
 	export_metric_collect_time.set(t_collect_us / 1000000)
 	t0 = get_us_time()
 
-	if monitoring.settings.debug then
-		local file = io.open(minetest.get_worldpath().."/prometheus.txt", "w" );
-		if file then
-			file:write(data);
-			file:close();
-		end
-	end
-
-	--print(data)
 	export_size.inc(string.len(data))
 
 	-- https://www.nginx.com/blog/deploying-nginx-plus-as-an-api-gateway-part-1/
 	http.fetch({
 		url = monitoring.settings.prom_push_url,
-		extra_headers = { "Content-Type: text/plain", "apikey", monitoring.settings.prom_push_key },
+		extra_headers = { "Content-Type: text/plain" },
 		post_data = data,
 		timeout = 5
 	}, function()
@@ -80,7 +92,7 @@ local push_metrics = function()
 end
 
 
-monitoring.prometheus_push_init = function()
+function monitoring.prometheus_push_init()
 	local timer = 0
 	minetest.register_globalstep(function(dtime)
 		timer = timer + dtime

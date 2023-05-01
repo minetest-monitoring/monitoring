@@ -7,11 +7,9 @@ monitoring = {
 	storage = minetest.get_mod_storage(),
   settings = {
     prom_push_url = minetest.settings:get("monitoring.prometheus_push_url"),
-    prom_push_key = minetest.settings:get("monitoring.prometheus_push_key") or "",
     builtin_disable = minetest.settings:get_bool("monitoring.builtin_disable"),
     csv_enable = minetest.settings:get_bool("monitoring.csv_enable"),
-    json_enable = minetest.settings:get_bool("monitoring.json_enable"),
-    debug = minetest.settings:get_bool("monitoring.debug")
+    json_enable = minetest.settings:get_bool("monitoring.json_enable")
   }
 }
 
@@ -135,4 +133,5 @@ if minetest.get_modpath("mtt") and mtt.enabled then
   -- test utils
   dofile(MP.."/init.spec.lua")
   dofile(MP.."/metrictypes/counter.spec.lua")
+  dofile(MP.."/export/prometheus_push.spec.lua")
 end
