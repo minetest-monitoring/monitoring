@@ -26,7 +26,7 @@ dofile(MP.."/chatcommands.lua")
 dofile(MP.."/register.lua")
 dofile(MP.."/sampling.lua")
 
-dofile(MP.."/export/prometheus_push.lua")
+loadfile(MP.."/export/prometheus_push.lua")(http)
 dofile(MP.."/export/csv.lua")
 dofile(MP.."/export/json.lua")
 
@@ -80,7 +80,7 @@ if monitoring.settings.prom_push_url then
   end
 
   print("[monitoring] enabling prometheus push")
-  monitoring.prometheus_push_init(http)
+  monitoring.prometheus_push_init()
 end
 
 if monitoring.settings.csv_enable then

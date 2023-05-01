@@ -1,3 +1,5 @@
+local http = ...
+
 local get_us_time = minetest.get_us_time
 local export_metric_collect_time = monitoring.gauge(
 	"prom_export_collect_time",
@@ -13,8 +15,6 @@ local export_size = monitoring.counter(
 	"prom_export_size_count",
 	"byte count of the prometheus export"
 )
-
-local http
 
 local push_metrics = function()
 
@@ -80,9 +80,7 @@ local push_metrics = function()
 end
 
 
-monitoring.prometheus_push_init = function(_http)
-	http = _http
-
+monitoring.prometheus_push_init = function()
 	local timer = 0
 	minetest.register_globalstep(function(dtime)
 		timer = timer + dtime

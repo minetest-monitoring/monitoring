@@ -4,7 +4,7 @@ local metric_entities = monitoring.gauge("registered_entities_count", "number of
 local metric_abm = monitoring.gauge("registered_abm_count", "number of registered abm's")
 
 -- https://stackoverflow.com/questions/2705793/how-to-get-number-of-entries-in-a-lua-table
-function tablelength(T)
+local function tablelength(T)
 	local count = 0
 	for _ in pairs(T) do count = count + 1 end
 	return count
