@@ -92,3 +92,8 @@ if monitoring.settings.json_enable then
   print("[monitoring] enabling json export")
   monitoring.json_init()
 end
+
+if minetest.get_modpath("mtt") and mtt.enabled then
+  -- test utils
+  dofile(MP .. "/init.spec.lua")
+end
