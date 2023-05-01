@@ -85,6 +85,11 @@ if minetest.get_modpath("basic_machines") then
   dofile(MP.."/mods/basic_machines/init.lua")
 end
 
+if minetest.get_modpath("digilines") then
+  dofile(MP.."/mods/digilines/init.lua")
+  dofile(MP.."/mods/digilines/metric_controller.lua")
+end
+
 if monitoring.settings.prom_push_url then
   if not http then
     error("prom_push_url defined but http not available!")

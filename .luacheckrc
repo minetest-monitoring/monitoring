@@ -14,5 +14,5 @@ read_globals = {
 	"dump",
 
 	-- optional dependencies
-	"QoS", "mtt"
+	"QoS", "mtt", "digiline"
 }
