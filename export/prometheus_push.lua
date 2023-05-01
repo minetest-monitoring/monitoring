@@ -20,8 +20,10 @@ function monitoring.serialize_prometheus_labels(labels)
 	local str = ""
 	local i = 0
 	for k,v in pairs(labels or {}) do
-		str = str .. k .. "=\"" .. v .. "\","
-		i = i + 1
+		if v ~= nil then
+			str = str .. k .. "=\"" .. v .. "\","
+			i = i + 1
+		end
 	end
 
 	if i > 0 then
