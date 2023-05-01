@@ -1,6 +1,7 @@
 globals = {
 	"monitoring",
-	"minetest"
+	"minetest",
+	"technic"
 }
 
 read_globals = {

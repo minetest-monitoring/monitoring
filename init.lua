@@ -74,6 +74,13 @@ if not monitoring.settings.builtin_disable then
   dofile(MP.."/builtin/settings.lua")
 end
 
+if minetest.get_modpath("technic") then
+  dofile(MP.."/mods/technic/abm.lua")
+  dofile(MP.."/mods/technic/quarry.lua")
+  dofile(MP.."/mods/technic/switch.lua")
+  dofile(MP.."/mods/technic/technic_run.lua")
+end
+
 if monitoring.settings.prom_push_url then
   if not http then
     error("prom_push_url defined but http not available!")
