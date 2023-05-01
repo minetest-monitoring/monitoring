@@ -81,6 +81,10 @@ if minetest.get_modpath("technic") then
   dofile(MP.."/mods/technic/technic_run.lua")
 end
 
+if minetest.get_modpath("basic_machines") then
+  dofile(MP.."/mods/basic_machines/init.lua")
+end
+
 if monitoring.settings.prom_push_url then
   if not http then
     error("prom_push_url defined but http not available!")
