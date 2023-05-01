@@ -98,6 +98,21 @@ if minetest.get_modpath("mesecons") then
   dofile(MP.."/mods/mesecons/queue.lua")
 end
 
+if minetest.get_modpath("pipeworks") then
+  dofile(MP.."/mods/pipeworks/init.lua")
+  dofile(MP.."/mods/pipeworks/entity_count.lua")
+  dofile(MP.."/mods/pipeworks/expiration.lua")
+  dofile(MP.."/mods/pipeworks/flush.lua")
+  dofile(MP.."/mods/pipeworks/filter_action_on.lua")
+  dofile(MP.."/mods/pipeworks/globalsteps.lua")
+  dofile(MP.."/mods/pipeworks/metrics.lua")
+  dofile(MP.."/mods/pipeworks/can_go.lua")
+  dofile(MP.."/mods/pipeworks/teleport_tubes.lua")
+  dofile(MP.."/mods/pipeworks/tube_inject_item.lua")
+  dofile(MP.."/mods/pipeworks/inject_limiter.lua")
+  dofile(MP.."/mods/pipeworks/chatcommands.lua")
+end
+
 if monitoring.settings.prom_push_url then
   if not http then
     error("prom_push_url defined but http not available!")

@@ -2,7 +2,8 @@ globals = {
 	"monitoring",
 	"minetest",
 	"technic",
-	"mesecon"
+	"mesecon",
+	"pipeworks"
 }
 
 read_globals = {
