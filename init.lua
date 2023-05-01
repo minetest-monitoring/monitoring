@@ -90,6 +90,14 @@ if minetest.get_modpath("digilines") then
   dofile(MP.."/mods/digilines/metric_controller.lua")
 end
 
+if minetest.get_modpath("mesecons") then
+  dofile(MP.."/mods/mesecons/action_on.lua")
+  dofile(MP.."/mods/mesecons/functions.lua")
+  dofile(MP.."/mods/mesecons/globals.lua")
+  dofile(MP.."/mods/mesecons/luac.lua")
+  dofile(MP.."/mods/mesecons/queue.lua")
+end
+
 if monitoring.settings.prom_push_url then
   if not http then
     error("prom_push_url defined but http not available!")
