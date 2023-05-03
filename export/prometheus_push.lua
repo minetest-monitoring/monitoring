@@ -87,9 +87,12 @@ local function push_metrics()
 		extra_headers = { "Content-Type: text/plain" },
 		post_data = data,
 		timeout = 5
-	}, function()
+	}, function(res)
 			local t_post_us = get_us_time() - t0
 			export_metric_post_time.set(t_post_us / 1000000)
+			if res.code >= 400 then
+				minetest.log("error", "[monitoring] prom-push returned code " .. res.code .. " data: " .. res.data)
+			end
 	end)
 end
 
