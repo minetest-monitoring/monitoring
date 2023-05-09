@@ -111,6 +111,12 @@ if minetest.get_modpath("pipeworks") then
   dofile(MP.."/mods/pipeworks/chatcommands.lua")
 end
 
+if minetest.get_modpath("advtrains") then
+  print("[monitoring] enabling advtrains integrations")
+  dofile(MP.."/mods/advtrains/chatcommands.lua")
+  dofile(MP.."/mods/advtrains/metrics.lua")
+end
+
 if monitoring.settings.prom_push_url then
   if not http then
     error("prom_push_url defined but http not available!")
