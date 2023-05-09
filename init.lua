@@ -57,6 +57,7 @@ if not monitoring.settings.builtin_disable then
   dofile(MP.."/builtin/on_step.lua")
   dofile(MP.."/builtin/playercount.lua")
   dofile(MP.."/builtin/protection_violation_count.lua")
+  dofile(MP.."/builtin/protection.lua")
   dofile(MP.."/builtin/punchplayer.lua")
   dofile(MP.."/builtin/received_fields.lua")
   dofile(MP.."/builtin/registered_count.lua")
