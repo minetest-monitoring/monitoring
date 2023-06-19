@@ -41,19 +41,19 @@ end)
 
 
 minetest.register_chatcommand("nodetimer_disable", {
-	description = "disables all nodetimers",
-	privs = {server=true},
-	func = function(name)
-		minetest.log("warning", "Player " .. name .. " disables all nodetimers")
-		global_nodetimer_enabled = false
-	end
+  description = "disables all nodetimers",
+  privs = {server=true},
+  func = function(name)
+    minetest.log("warning", "Player " .. name .. " disables all nodetimers")
+    global_nodetimer_enabled = false
+  end
 })
 
 minetest.register_chatcommand("nodetimer_enable", {
-	description = "enables all nodetimers",
-	privs = {server=true},
-	func = function(name)
-		minetest.log("warning", "Player " .. name .. " enables all nodetimers")
-		global_nodetimer_enabled = true
-	end
+  description = "enables all nodetimers",
+  privs = {server=true},
+  func = function(name)
+    minetest.log("warning", "Player " .. name .. " enables all nodetimers")
+    global_nodetimer_enabled = true
+  end
 })
