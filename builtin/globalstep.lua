@@ -16,46 +16,38 @@ local time_table = {}
 local globalsteps_disabled = {}
 
 minetest.register_on_mods_loaded(function()
-  metric_callbacks.set(#minetest.registered_globalsteps)
+	metric_callbacks.set(#minetest.registered_globalsteps)
 
-  for i, globalstep in ipairs(minetest.registered_globalsteps) do
+	for i, globalstep in ipairs(minetest.registered_globalsteps) do
+		local info = minetest.callback_origins[globalstep]
+		local new_callback = function(dtime)
+			if globalsteps_disabled[info.mod] then
+				return
+			end
 
-    local info = minetest.callback_origins[globalstep]
-
-    local new_callback = function(dtime)
-
-      if globalsteps_disabled[info.mod] then
-        return
-      end
-
-      metric.inc()
-      local t0 = get_us_time()
+			metric.inc()
+			local t0 = get_us_time()
 			globalstep(dtime)
-      local t1 = get_us_time()
-      local diff = t1 - t0
-      metric_time.inc(diff)
-      metric_time_max.setmax(diff)
+			local t1 = get_us_time()
+			local diff = t1 - t0
+
+			metric_time.inc(diff)
+			metric_time_max.setmax(diff)
 
 			-- increment globalstep time table entry
 			local entr_key = "globalstep_" .. i .. "_" .. (info.mod or "<unknown>")
 			local tt_entry = time_table[entr_key] or 0
 			tt_entry = tt_entry + diff
 			time_table[entr_key] = tt_entry
+		end
 
-      if diff > 75000 then
-        minetest.log("warning", "[monitoring] globalstep took " .. diff .. " us in mod " .. (info.mod or "<unknown>"))
-      end
+		minetest.registered_globalsteps[i] = new_callback
 
-    end
-
-    minetest.registered_globalsteps[i] = new_callback
-
-    -- for the profiler
-    if minetest.callback_origins then
-      minetest.callback_origins[new_callback] = info
-    end
-
-  end
+		-- for the profiler
+		if minetest.callback_origins then
+			minetest.callback_origins[new_callback] = info
+		end
+	end
 end)
 
 
@@ -64,10 +56,10 @@ minetest.register_chatcommand("globalstep_disable", {
 	description = "disables a globalstep",
 	privs = {server=true},
 	func = function(name, param)
-    if not param then
-      minetest.chat_send_player(name, "Usage: globalstep_disable <modname>")
-      return false
-    end
+		if not param then
+			minetest.chat_send_player(name, "Usage: globalstep_disable <modname>")
+			return false
+		end
 
 		minetest.log("warning", "Player " .. name .. " disables globalstep " .. param)
 		globalsteps_disabled[param] = true
@@ -78,10 +70,10 @@ minetest.register_chatcommand("globalstep_enable", {
 	description = "enables a globalstep",
 	privs = {server=true},
 	func = function(name, param)
-    if not param then
-      minetest.chat_send_player(name, "Usage: globalstep_enable <modname>")
-      return false
-    end
+		if not param then
+			minetest.chat_send_player(name, "Usage: globalstep_enable <modname>")
+			return false
+		end
 
 		minetest.log("warning", "Player " .. name .. " enables globalstep " .. param)
 		globalsteps_disabled[param] = nil
@@ -100,13 +92,13 @@ minetest.register_chatcommand("globalsteps_enable", {
 minetest.register_chatcommand("globalstep_status", {
 	description = "shows the disabled globalsteps",
 	func = function()
-    local list = "Disabled globalsteps:"
+		local list = "Disabled globalsteps:"
 
-    for mod in pairs(globalsteps_disabled) do
-      list = list .. " " .. mod
-    end
+		for mod in pairs(globalsteps_disabled) do
+			list = list .. " " .. mod
+		end
 
-    return true, list
+		return true, list
 	end
 })
 
