@@ -1,34 +1,14 @@
 local metric = monitoring.gauge("forceload_blocks_count", "number of forceload blocks")
 
-
--- stolen from https://github.com/minetest/minetest/blob/master/builtin/game/forceloading.lua
-local wpath = minetest.get_worldpath()
-local function read_file(filename)
-	local f = io.open(filename, "r")
-	if f==nil then return {} end
-	local t = f:read("*all")
-	f:close()
-	if t=="" or t==nil then return {} end
-	return minetest.deserialize(t) or {}
-end
-
--- temporary variable for fs-backed forceload storage
 local blocks_forceloaded = {}
-local timer = 0
-minetest.register_globalstep(function(dtime)
-	timer = timer + dtime
-	if timer < 5 then return end
-	timer=0
 
-	local total_forceloaded = 0
-	blocks_forceloaded = read_file(wpath.."/force_loaded.txt")
-
-	for _ in pairs(blocks_forceloaded) do
-		total_forceloaded = total_forceloaded + 1
+local function update_metric()
+	local counter = 0
+	for _, _ in pairs(blocks_forceloaded) do
+		counter = counter + 1
 	end
-
-	metric.set(total_forceloaded)
-end)
+	metric.set(counter)
+end
 
 local function get_blockpos(pos)
 	return {
@@ -37,9 +17,35 @@ local function get_blockpos(pos)
 		z = math.floor(pos.z/16)}
 end
 
+local old_forceload_block = minetest.forceload_block
+
+function minetest.forceload_block(pos, transient, limit)
+	local retval = old_forceload_block(pos, transient, limit)
+
+	if retval == true then
+		local blockpos = get_blockpos(pos)
+		local hash = minetest.hash_node_position(blockpos)
+		blocks_forceloaded[hash] = true
+		update_metric()
+	end
+
+	return retval
+end
+
+local old_forceload_free_block = minetest.forceload_free_block
+
+function minetest.forceload_free_block(pos, transient)
+	local blockpos = get_blockpos(pos)
+	local hash = minetest.hash_node_position(blockpos)
+	blocks_forceloaded[hash] = nil -- remove from cache
+	update_metric()
+
+	return old_forceload_free_block(pos, transient)
+end
+
 -- returns true if the block at the node-position is forceloaded
 function monitoring.is_forceloaded(pos)
 	local blockpos = get_blockpos(pos)
 	local hash = minetest.hash_node_position(blockpos)
-	return blocks_forceloaded[hash] == 1
+	return blocks_forceloaded[hash] == true
 end
