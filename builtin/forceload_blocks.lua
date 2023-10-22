@@ -53,3 +53,27 @@ end
 minetest.register_on_mods_loaded(function()
 	update_metric()
 end)
+
+-- minetest doesn't call the global api on startup
+
+local wpath = minetest.get_worldpath()
+
+-- stolen from https://github.com/minetest/minetest/blob/master/builtin/game/forceloading.lua
+local function read_file(filename)
+	local f = io.open(filename, "r")
+	if f == nil then return {} end
+	local t = f:read("*all")
+	f:close()
+	if t == "" or t == nil then return {} end
+
+	return minetest.deserialize(t) or {}
+end
+
+local forceloadedtxt = read_file(wpath.."/force_loaded.txt")
+
+minetest.after(5, function()
+	for hash, _ in pairs(forceloadedtxt) do
+		blocks_forceloaded[hash] = true
+	end
+	update_metric()
+end)
