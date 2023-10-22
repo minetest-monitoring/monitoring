@@ -49,3 +49,7 @@ function monitoring.is_forceloaded(pos)
 	local hash = minetest.hash_node_position(blockpos)
 	return blocks_forceloaded[hash] == true
 end
+
+minetest.register_on_mods_loaded(function()
+	update_metric()
+end)
