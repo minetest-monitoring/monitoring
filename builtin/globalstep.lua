@@ -8,21 +8,64 @@ local metric_time_max = monitoring.gauge(
 	{ autoflush=true }
 )
 
--- per mod/globalstep time table
--- mod-name[n] => time in microseconds
-local time_table = {}
+-- <unique-key> -> { strategy = "" }
+-- expose config for other mods
+monitoring.globalsteps_config = {}
 
--- modname -> bool
-local globalsteps_disabled = {}
+-- globalstep run strategies
+local STRATEGY_DISABLED = "DISABLED"
+local STRATEGY_SKIP = "SKIP"
+local strategies = {
+	-- entirely disabled
+	[STRATEGY_DISABLED] = function() return false end,
+	-- skip calls
+	[STRATEGY_SKIP] = function(cfg)
+		cfg.count = cfg.count and cfg.count + 1 or 1
+		cfg.skip = cfg.skip or 2 -- every 2nd call as default
+		if cfg.count >= cfg.skip then
+			cfg.count = 0
+			return true
+		end
+		return false
+	end
+}
 
-minetest.register_on_mods_loaded(function()
+local function wrap_globalsteps()
 	metric_callbacks.set(#minetest.registered_globalsteps)
+
+	-- info.name => <number>
+	local step_name_count = {}
 
 	for i, globalstep in ipairs(minetest.registered_globalsteps) do
 		local info = minetest.callback_origins[globalstep]
+
+		-- get unique name for globalstep entry
+		local modname = info.mod
+		if not modname or modname == "" then
+			modname = "unknown"
+		end
+		local name_count = step_name_count[modname]
+		if not name_count then
+			name_count = 1
+		end
+		local globalstep_key = modname .. "_" .. name_count
+		name_count = name_count + 1
+		step_name_count[modname] = name_count
+
 		local new_callback = function(dtime)
-			if globalsteps_disabled[info.mod] then
-				return
+			local cfg = monitoring.globalsteps_config[globalstep_key]
+			if not cfg then
+				-- set up empty config
+				cfg = {}
+				monitoring.globalsteps_config[globalstep_key] = cfg
+			end
+			local strategy_fn = strategies[cfg.strategy]
+			if strategy_fn then
+				-- call strategy
+				local enable = strategy_fn(cfg)
+				if not enable then
+					return
+				end
 			end
 
 			metric.inc()
@@ -34,11 +77,10 @@ minetest.register_on_mods_loaded(function()
 			metric_time.inc(diff)
 			metric_time_max.setmax(diff)
 
-			-- increment globalstep time table entry
-			local entr_key = "globalstep_" .. i .. "_" .. (info.mod or "<unknown>")
-			local tt_entry = time_table[entr_key] or 0
+			-- time table
+			local tt_entry = cfg.time_us or 0
 			tt_entry = tt_entry + diff
-			time_table[entr_key] = tt_entry
+			cfg.time_us = tt_entry
 		end
 
 		minetest.registered_globalsteps[i] = new_callback
@@ -48,9 +90,16 @@ minetest.register_on_mods_loaded(function()
 			minetest.callback_origins[new_callback] = info
 		end
 	end
+end
+
+-- delay globalstep "wrapping" until the mesecons mod did their hack (set to 4 seconds)
+-- see: https://github.com/minetest-mods/mesecons/blob/master/mesecons/actionqueue.lua#L118
+minetest.register_on_mods_loaded(function()
+	minetest.after(5, function()
+		print("[monitoring] wrapping globalstep callbacks")
+		wrap_globalsteps()
+	end)
 end)
-
-
 
 minetest.register_chatcommand("globalstep_disable", {
 	description = "disables a globalstep",
@@ -62,7 +111,7 @@ minetest.register_chatcommand("globalstep_disable", {
 		end
 
 		minetest.log("warning", "Player " .. name .. " disables globalstep " .. param)
-		globalsteps_disabled[param] = true
+		monitoring.globalsteps_config[param] = { strategy = STRATEGY_DISABLED }
 	end
 })
 
@@ -76,7 +125,7 @@ minetest.register_chatcommand("globalstep_enable", {
 		end
 
 		minetest.log("warning", "Player " .. name .. " enables globalstep " .. param)
-		globalsteps_disabled[param] = nil
+		monitoring.globalsteps_config[param] = nil
 	end
 })
 
@@ -85,40 +134,22 @@ minetest.register_chatcommand("globalsteps_enable", {
 	privs = {server=true},
 	func = function(name)
 		minetest.log("warning", "Player " .. name .. " enables all globalsteps")
-		globalsteps_disabled = {}
+		monitoring.globalsteps_config = {}
 	end
 })
 
 minetest.register_chatcommand("globalstep_status", {
-	description = "shows the disabled globalsteps",
+	description = "shows the globalstep status",
 	func = function()
-		local list = "Disabled globalsteps:"
+		local list = "Globalstep status:\n"
 
-		for mod in pairs(globalsteps_disabled) do
-			list = list .. " " .. mod
+		for name, cfg in pairs(monitoring.globalsteps_config) do
+			list = list .. "* " .. name .. ", " ..
+				"strategy: " .. (cfg.strategy or "DEFAULT") .. ", " ..
+				"time: " .. (cfg.time_us or "UNKNOWN") .. " us" ..
+				"\n"
 		end
 
 		return true, list
-	end
-})
-
--- time table commands
-
-minetest.register_chatcommand("globalstep_table_reset", {
-	description = "resets the globalstep time table",
-	func = function()
-		time_table = {}
-		return true, "time table reset"
-	end
-})
-
-minetest.register_chatcommand("globalstep_table_show", {
-	description = "shows the globalstep time table",
-	func = function()
-		local str = ""
-		for modname, micros in pairs(time_table) do
-			str = str .. "+ " .. modname .. " = " .. micros .. " us\n"
-		end
-		return true, str
 	end
 })
