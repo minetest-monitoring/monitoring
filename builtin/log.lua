@@ -4,5 +4,10 @@ local old_log = minetest.log
 
 function minetest.log(level, text)
     metric.inc()
-    return old_log(level, text)
+    -- The number and order of parameters is important here
+    if text ~= nil then
+        return old_log(level, text)
+    else
+        return old_log(level)
+    end
 end
