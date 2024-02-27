@@ -2,8 +2,9 @@
 minetest.register_node(":monitoring_digilines:metric_controller", {
 	description = "Monitoring metric controller",
 	groups = {
-    cracky=3
-  },
+		cracky=3
+	},
+	is_ground_content = false,
 
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
