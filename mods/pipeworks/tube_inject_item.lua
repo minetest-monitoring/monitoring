@@ -15,7 +15,7 @@ local metric_tube_inject_item_limited_calls = monitoring.counter(
 
 local old_inject_item = pipeworks.tube_inject_item
 
-pipeworks.tube_inject_item = function(pos, start_pos, velocity, item, owner)
+pipeworks.tube_inject_item = function(pos, start_pos, velocity, item, owner, tags)
 	if not monitoring.pipeworks.enabled then
 		-- only allow call if the mod is in "enabled" state
 		return
@@ -29,7 +29,7 @@ pipeworks.tube_inject_item = function(pos, start_pos, velocity, item, owner)
 	end
 
 	-- everything ok, let it go into tubes
-	old_inject_item(pos, start_pos, velocity, item, owner)
+	old_inject_item(pos, start_pos, velocity, item, owner, tags)
 end
 
 -- wrap metrics interceptor around it
