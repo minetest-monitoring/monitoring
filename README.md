@@ -1,6 +1,11 @@
 # Monitoring framework for minetest
 Provides a [prometheus](https://prometheus.io) monitoring endpoint (via push-gateway).
 
+![](https://github.com/minetest-monitoring/monitoring/workflows/luacheck/badge.svg)
+![](https://github.com/minetest-monitoring/monitoring/workflows/test/badge.svg)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](license.txt)
+[![Coverage Status](https://coveralls.io/repos/github/minetest-monitoring/monitoring/badge.svg?branch=master)](https://coveralls.io/github/minetest-monitoring/monitoring?branch=master)
+
 ## Demo
 
 * [monitoring.minetest.ch](https://monitoring.minetest.ch/d/YUpouLmWk/lua-server-monitoring-mod?tab=visualization&orgId=1&refresh=5s&var-instance=pandorabox.io)
