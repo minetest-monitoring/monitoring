@@ -49,6 +49,7 @@ if not monitoring.settings.builtin_disable then
   dofile(MP.."/builtin/lag.lua")
   dofile(MP.."/builtin/lbm_calls.lua")
   dofile(MP.."/builtin/leave_count.lua")
+  dofile(MP.."/builtin/liquid_transformed.lua")
   dofile(MP.."/builtin/luamem.lua")
   dofile(MP.."/builtin/log.lua")
   dofile(MP.."/builtin/place_count.lua")
@@ -116,6 +117,11 @@ if minetest.get_modpath("advtrains") then
   print("[monitoring] enabling advtrains integrations")
   dofile(MP.."/mods/advtrains/chatcommands.lua")
   dofile(MP.."/mods/advtrains/metrics.lua")
+end
+
+if minetest.get_modpath("nc_optics") then
+  print("[monitoring] enabling nc_optics integrations")
+  dofile(MP.."/mods/nodecore/nc_optics.lua")
 end
 
 if monitoring.settings.prom_push_url then

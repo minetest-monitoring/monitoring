@@ -1,0 +1,5 @@
+monitoring.wrap_global({"nodecore", "optic_check"}, "nodecore_optic_check")
+monitoring.wrap_global({"nodecore", "optic_scan_recv"}, "nodecore_optic_scan_recv")
+monitoring.wrap_global({"nodecore", "optic_scan"}, "nodecore_optic_scan")
+monitoring.wrap_global({"nodecore", "optic_immediate"}, "nodecore_optic_immediate")
+monitoring.wrap_global({"nodecore", "optic_check_dependents"}, "nodecore_optic_check_dependents")

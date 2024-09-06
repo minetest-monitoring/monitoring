@@ -14,7 +14,7 @@ monitoring.wrap_global = function(path, prefix)
 
 	for i, part in ipairs(path) do
 		if i < #path then
-			obj = obj[part]
+			obj = assert(obj[part], "lookup failed: " .. dump(path))
 		else
 			field = part
 		end
