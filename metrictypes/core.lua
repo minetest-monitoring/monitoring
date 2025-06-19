@@ -13,8 +13,9 @@ function monitoring.serialize_labels(labels)
 
     for _, k in ipairs(label_names) do
         local v = labels[k]
-        if v ~= nil and #v > 0 then
-            str = str .. k .. "=\"" .. v .. "\","
+        local vstr = v and tostring(v) or ""
+        if v ~= nil and #vstr > 0 then
+            str = str .. k .. "=\"" .. vstr .. "\","
         end
     end
 

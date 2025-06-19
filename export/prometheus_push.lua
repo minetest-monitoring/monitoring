@@ -61,7 +61,7 @@ local function push_metrics()
 	local t0 = minetest.get_us_time()
 
 	local data = ""
-	for _, metric_family in ipairs(monitoring.metrics) do
+	for _, metric_family in pairs(monitoring.metrics) do
 		data = data .. monitoring.serialize_prometheus_metric_family(metric_family)
 	end
 
@@ -93,6 +93,8 @@ function monitoring.prometheus_push_init()
 		timer = timer + dtime
 		if timer < 5 then return end
 		timer=0
+
+		core.debug("[monitoring] pushing metrics to prometheus push gateway")
 
 		push_metrics()
 	end)
