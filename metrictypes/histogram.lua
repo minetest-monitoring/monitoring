@@ -1,8 +1,8 @@
 
 local get_us_time = minetest.get_us_time
 
-monitoring.histogram = function(name, help, buckets)
-	buckets = buckets or {0.01, 0.05, 0.1, 0.2, 0.5, 1.0}
+monitoring.histogram = function(name, help, options)
+	local buckets = (options and options.buckets) or {0.01, 0.05, 0.1, 0.2, 0.5, 1.0}
 	local bucketvalues = {}
 	for k in ipairs(buckets) do
 		bucketvalues[k] = 0
@@ -12,6 +12,7 @@ monitoring.histogram = function(name, help, buckets)
 		name = name,
 		help = help,
 		type = "histogram",
+		labels = options and options.labels or {},
 		buckets = buckets,
 		bucketvalues = bucketvalues,
 		sum = 0,
@@ -19,8 +20,7 @@ monitoring.histogram = function(name, help, buckets)
 		infcount = 0
 	}
 
-	table.insert(monitoring.metrics, metric)
-	monitoring.metrics_mapped[name] = metric
+	metric = monitoring.register_metric(metric)
 
 	-- adds the value to the buckets
 	local add_value = function(seconds)

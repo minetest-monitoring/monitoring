@@ -7,6 +7,7 @@ monitoring.counter = function(name, help, options)
 		name = name,
 		help = help,
 		type = "counter",
+		labels = options and options.labels or {},
 		value = 0,
 		options = options or {}
 	}
@@ -52,8 +53,6 @@ monitoring.counter = function(name, help, options)
 		end
 	end
 
-	table.insert(monitoring.metrics, metric)
-	monitoring.metrics_mapped[name] = metric
+	return monitoring.register_metric(metric)
 
-	return metric
 end

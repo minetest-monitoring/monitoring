@@ -16,6 +16,7 @@ monitoring = {
 local http = minetest.get_modpath("qos") and QoS and QoS(minetest.request_http_api(), 2) or minetest.request_http_api()
 local MP = minetest.get_modpath("monitoring")
 
+dofile(MP.."/metrictypes/core.lua")
 dofile(MP.."/metrictypes/gauge.lua")
 dofile(MP.."/metrictypes/counter.lua")
 dofile(MP.."/metrictypes/histogram.lua")
@@ -146,6 +147,7 @@ end
 if minetest.get_modpath("mtt") and mtt.enabled then
   -- test utils
   dofile(MP.."/init.spec.lua")
+  dofile(MP.."/metrictypes/core.spec.lua")
   dofile(MP.."/metrictypes/counter.spec.lua")
   dofile(MP.."/export/prometheus_push.spec.lua")
 end

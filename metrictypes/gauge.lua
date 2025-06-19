@@ -4,6 +4,7 @@ monitoring.gauge = function(name, help, options)
 		name = name,
 		help = help,
 		type = "gauge",
+		labels = options and options.labels or {},
 		options = options or {}
 	}
 
@@ -35,8 +36,5 @@ monitoring.gauge = function(name, help, options)
 		end
 	end
 
-	table.insert(monitoring.metrics, metric)
-	monitoring.metrics_mapped[name] = metric
-
-	return metric
+	return monitoring.register_metric(metric)
 end
