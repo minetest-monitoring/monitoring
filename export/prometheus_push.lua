@@ -16,38 +16,28 @@ local export_size = monitoring.counter(
 	"byte count of the prometheus export"
 )
 
-function monitoring.serialize_prometheus_labels(labels)
-	local str = ""
-	local i = 0
-	for k,v in pairs(labels or {}) do
-		if v ~= nil then
-			str = str .. k .. "=\"" .. v .. "\","
-			i = i + 1
-		end
+function monitoring.serialize_prometheus_metric_family(metric_family)
+	local data = ""
+
+	data = data .. "# TYPE " .. metric_family.name .. " " .. metric_family.type .. "\n"
+	data = data .. "# HELP " .. metric_family.name .. " " .. metric_family.help .. "\n"
+	if metric_family.unit then
+		data = data .. "# UNIT " .. metric_family.name .. " " .. metric_family.unit .. "\n"
 	end
 
-	if i > 0 then
-		return "{" .. string.sub(str, 1, #str-1) .. "}"
-	else
-		return ""
+	for serialized_labels, metric in pairs(metric_family.metrics) do
+		data = data .. monitoring.serialize_prometheus_metric(serialized_labels, metric)
 	end
+
+	return data
 end
 
-function monitoring.serialize_prometheus_metric(metric)
+function monitoring.serialize_prometheus_metric(serialized_labels, metric)
 	local data = ""
 	if metric.value or metric.value == 0 then
-		data = data .. "# TYPE " .. metric.name .. " " .. metric.type .. "\n"
-		data = data .. "# HELP " .. metric.name .. " " .. metric.help .. "\n"
-
 		if metric.value ~= nil then
 		if metric.type == "gauge" or metric.type == "counter" then
-			data = data .. metric.name
-			if metric.options and metric.options.labels then
-				-- append labels
-				data = data .. monitoring.serialize_prometheus_labels(metric.options.labels)
-			end
-			data = data  .. " " .. metric.value .. "\n"
-
+			data = data .. metric.name .. serialized_labels .. " " .. metric.value .. "\n"
 			if metric.options and metric.options.autoflush then
 				-- reset metric value on export
 				metric.value = nil
@@ -57,11 +47,11 @@ function monitoring.serialize_prometheus_metric(metric)
 
 		if metric.type == "histogram" then
 			for k, bucket in ipairs(metric.buckets) do
-				data = data .. metric.name .. "_bucket{le=\"" .. bucket  .. "\"} " .. metric.bucketvalues[k] .. "\n"
+				data = data .. metric.name .. "_bucket{le=\"" .. bucket  .. "\"}".. serialized_labels .. " " .. metric.bucketvalues[k] .. "\n"
 			end
-			data = data .. metric.name .. "_bucket{le=\"+Inf\"} " .. metric.infcount .. "\n"
-			data = data .. metric.name .. "_sum " .. metric.sum .. "\n"
-			data = data .. metric.name .. "_count " .. metric.count .. "\n"
+			data = data .. metric.name .. "_bucket{le=\"+Inf\"}".. serialized_labels .. " " .. metric.infcount .. "\n"
+			data = data .. metric.name .. "_sum".. serialized_labels .. " " .. metric.sum .. "\n"
+			data = data .. metric.name .. "_count".. serialized_labels .. " " .. metric.count .. "\n"
 		end
 	end
 	return data
@@ -71,8 +61,8 @@ local function push_metrics()
 	local t0 = minetest.get_us_time()
 
 	local data = ""
-	for _, metric in ipairs(monitoring.metrics) do
-		data = data .. monitoring.serialize_prometheus_metric(metric)
+	for _, metric_family in pairs(monitoring.metrics) do
+		data = data .. monitoring.serialize_prometheus_metric_family(metric_family)
 	end
 
 	local t_collect_us = get_us_time() - t0
@@ -103,6 +93,8 @@ function monitoring.prometheus_push_init()
 		timer = timer + dtime
 		if timer < 5 then return end
 		timer=0
+
+		core.debug("[monitoring] pushing metrics to prometheus push gateway")
 
 		push_metrics()
 	end)
