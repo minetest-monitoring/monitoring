@@ -1,0 +1,15 @@
+
+services:
+  mtt:
+    image: ghcr.io/buckaroobanzay/mtt:latest
+    volumes:
+     - "./:/github/workspace"
+    environment:
+     INPUT_MODNAME: "monitoring"
+     INPUT_TEST_MODE: "mod"
+     INPUT_MAPGEN: "singlenode"
+     INPUT_GIT_GAME_REPO: "https://github.com/minetest/minetest_game"
+     INPUT_GIT_DEPENDENCIES: |
+      https://github.com/OgelGames/fakelib
+     INPUT_ADDITIONAL_CONFIG: |
+      secure.http_mods = monitoring
