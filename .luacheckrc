@@ -1,9 +1,12 @@
+max_line_length = 240
+
 globals = {
 	"monitoring",
 	"minetest",
 	"technic",
 	"mesecon",
-	"pipeworks"
+	"pipeworks",
+	"core" -- until luacheck gets a new release
 }
 
 read_globals = {

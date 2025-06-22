@@ -17,7 +17,7 @@ mtt.register("serialize_prometheus_metric_family", function(callback)
     assert(#lines == 1)
     assert(lines[1] == "my_metric{} 1")
 
-    local m2 = monitoring.gauge("my_metric", "help stuff", {
+    monitoring.gauge("my_metric", "help stuff", {
         labels = { x = "123" }
     })
     assert(monitoring.metrics_mapped["my_metric"] == m)

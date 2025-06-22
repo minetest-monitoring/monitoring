@@ -1,15 +1,14 @@
 function monitoring.serialize_labels(labels)
-	
+
     if not labels or type(labels) ~= "table" then
         return ""
     end
-    
+
     local str = ""
-	local i = 0
 
     local label_names = {}
     for k, _ in pairs(labels) do table.insert(label_names, k) end
-    table.sort(label_names)    
+    table.sort(label_names)
 
     for _, k in ipairs(label_names) do
         local v = labels[k]
@@ -32,7 +31,7 @@ end
     local metric_family = monitoring.metrics[metric.name]
 
     if metric_family then
-        -- Metric already exists, check 
+        -- Metric already exists, checks
         if metric_family.type ~= metric.type then
             error("Metric type mismatch for " .. metric.name .. ": " .. metric_family.type .. " vs " .. metric.type)
         end
