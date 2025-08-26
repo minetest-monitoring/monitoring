@@ -94,8 +94,6 @@ function monitoring.prometheus_push_init()
 		if timer < 5 then return end
 		timer=0
 
-		core.debug("[monitoring] pushing metrics to prometheus push gateway")
-
 		push_metrics()
 	end)
 end
