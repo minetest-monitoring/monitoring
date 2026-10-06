@@ -14,7 +14,7 @@ local global_lbms_enabled = true
 minetest.register_on_mods_loaded(function()
 	for _, lbm in ipairs(minetest.registered_lbms) do
 		local old_action = lbm.action
-		lbm.action = function(pos, node)
+		lbm.action = function(...)
 
 			if not global_lbms_enabled then
 				return
@@ -22,7 +22,7 @@ minetest.register_on_mods_loaded(function()
 
 			metric.inc()
 			local t0 = get_us_time()
-			old_action(pos, node)
+			old_action(...)
 			local t1 = get_us_time()
 			local diff = t1 - t0
 			metric_time.inc(diff)

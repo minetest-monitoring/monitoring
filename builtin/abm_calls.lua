@@ -14,7 +14,7 @@ local global_abms_enabled = true
 minetest.register_on_mods_loaded(function()
   for _, abm in ipairs(minetest.registered_abms) do
     local old_action = abm.action
-    abm.action = function(pos, node, active_object_count, active_object_count_wider)
+    abm.action = function(...)
 
       if not global_abms_enabled then
         return
@@ -22,7 +22,7 @@ minetest.register_on_mods_loaded(function()
 
       metric.inc()
       local t0 = get_us_time()
-      old_action(pos, node, active_object_count, active_object_count_wider)
+      old_action(...)
       local t1 = get_us_time()
       local diff = t1 - t0
       metric_time.inc(diff)
